@@ -7,3 +7,4 @@ node_modules/
 # Bỏ qua tất cả các file có đuôi .log trong dự án
 *.log
 
+*.sql
