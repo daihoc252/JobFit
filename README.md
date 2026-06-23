@@ -67,12 +67,12 @@ JobFit/
 
 ### Yêu cầu hệ thống
 
-| Công cụ | Phiên bản | Kiểm tra |
-|---|---|---|
-| Node.js | v18 trở lên | `node --version` |
-| npm | v9 trở lên | `npm --version` |
-| MySQL | v8.0 trở lên | `mysql --version` |
-| Tài khoản Groq | Miễn phí | [console.groq.com](https://console.groq.com) |
+| Công cụ        | Phiên bản    | Kiểm tra                                     |
+| -------------- | ------------ | -------------------------------------------- |
+| Node.js        | v18 trở lên  | `node --version`                             |
+| npm            | v9 trở lên   | `npm --version`                              |
+| MySQL          | v8.0 trở lên | `mysql --version`                            |
+| Tài khoản Groq | Miễn phí     | [console.groq.com](https://console.groq.com) |
 
 ---
 
@@ -117,6 +117,7 @@ node server.js
 ```
 
 Nếu thành công sẽ hiển thị:
+
 ```
 Server đang chạy tại http://localhost:3000
 ```
@@ -147,7 +148,7 @@ JWT_SECRET=jobfit_secret_key_2024
 JWT_EXPIRES=7d
 
 # Groq AI API
-GROQ_API_KEY=lay_tai_console.groq.com
+GROQ_API_KEY=GROQ_API_KEY=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
 ```
 
 > ⚠️ **Lưu ý:** Không được commit file `.env` lên GitHub. File này chứa thông tin bí mật.
@@ -160,51 +161,51 @@ Hệ thống sử dụng **4 bảng chính**:
 
 ### Bảng `users` – Tài khoản người dùng
 
-| Cột | Kiểu dữ liệu | Mô tả |
-|---|---|---|
-| `id` | INT (PK) | Mã định danh tự tăng |
-| `email` | VARCHAR(255) | Email đăng nhập, phải duy nhất |
-| `password` | VARCHAR(255) | Mật khẩu đã mã hóa bcrypt |
-| `role` | ENUM | `candidate` (ứng viên) hoặc `employer` (NTD) |
-| `name` | VARCHAR(150) | Họ tên người dùng |
-| `created_at` | DATETIME | Ngày tạo tài khoản |
+| Cột          | Kiểu dữ liệu | Mô tả                                        |
+| ------------ | ------------ | -------------------------------------------- |
+| `id`         | INT (PK)     | Mã định danh tự tăng                         |
+| `email`      | VARCHAR(255) | Email đăng nhập, phải duy nhất               |
+| `password`   | VARCHAR(255) | Mật khẩu đã mã hóa bcrypt                    |
+| `role`       | ENUM         | `candidate` (ứng viên) hoặc `employer` (NTD) |
+| `name`       | VARCHAR(150) | Họ tên người dùng                            |
+| `created_at` | DATETIME     | Ngày tạo tài khoản                           |
 
 ### Bảng `companies` – Thông tin nhà tuyển dụng
 
-| Cột | Kiểu dữ liệu | Mô tả |
-|---|---|---|
-| `id` | INT (PK) | Mã công ty |
-| `user_id` | INT (FK) | Liên kết với bảng `users` (role=employer) |
-| `name` | VARCHAR(255) | Tên công ty |
-| `contact_email` | VARCHAR(255) | Email liên hệ hiển thị trong bài đăng |
-| `contact_phone` | VARCHAR(20) | Số điện thoại liên hệ |
-| `address` | VARCHAR(500) | Địa chỉ công ty |
-| `website` | VARCHAR(500) | Website công ty |
+| Cột             | Kiểu dữ liệu | Mô tả                                     |
+| --------------- | ------------ | ----------------------------------------- |
+| `id`            | INT (PK)     | Mã công ty                                |
+| `user_id`       | INT (FK)     | Liên kết với bảng `users` (role=employer) |
+| `name`          | VARCHAR(255) | Tên công ty                               |
+| `contact_email` | VARCHAR(255) | Email liên hệ hiển thị trong bài đăng     |
+| `contact_phone` | VARCHAR(20)  | Số điện thoại liên hệ                     |
+| `address`       | VARCHAR(500) | Địa chỉ công ty                           |
+| `website`       | VARCHAR(500) | Website công ty                           |
 
 ### Bảng `jobs` – Tin tuyển dụng
 
-| Cột | Kiểu dữ liệu | Mô tả |
-|---|---|---|
-| `id` | INT (PK) | Mã tin tuyển dụng |
-| `company_id` | INT (FK) | Công ty nào đăng tin |
-| `title` | VARCHAR(255) | Tên vị trí (VD: Frontend Developer) |
-| `description` | TEXT | Mô tả công việc (JD) |
-| `skills_required` | JSON | Kỹ năng yêu cầu dạng mảng JSON |
-| `salary` | VARCHAR(100) | Mức lương (VD: 15 - 25 triệu) |
-| `location` | VARCHAR(255) | Địa điểm làm việc |
-| `job_type` | ENUM | `full-time` / `part-time` / `remote` / `intern` |
-| `status` | ENUM | `open` (đang mở) hoặc `closed` (đã đóng) |
+| Cột               | Kiểu dữ liệu | Mô tả                                           |
+| ----------------- | ------------ | ----------------------------------------------- |
+| `id`              | INT (PK)     | Mã tin tuyển dụng                               |
+| `company_id`      | INT (FK)     | Công ty nào đăng tin                            |
+| `title`           | VARCHAR(255) | Tên vị trí (VD: Frontend Developer)             |
+| `description`     | TEXT         | Mô tả công việc (JD)                            |
+| `skills_required` | JSON         | Kỹ năng yêu cầu dạng mảng JSON                  |
+| `salary`          | VARCHAR(100) | Mức lương (VD: 15 - 25 triệu)                   |
+| `location`        | VARCHAR(255) | Địa điểm làm việc                               |
+| `job_type`        | ENUM         | `full-time` / `part-time` / `remote` / `intern` |
+| `status`          | ENUM         | `open` (đang mở) hoặc `closed` (đã đóng)        |
 
 ### Bảng `cvs` – CV của ứng viên
 
-| Cột | Kiểu dữ liệu | Mô tả |
-|---|---|---|
-| `id` | INT (PK) | Mã CV |
-| `user_id` | INT (FK) | CV của ứng viên nào |
-| `file_name` | VARCHAR(255) | Tên file gốc người dùng upload |
-| `file_path` | VARCHAR(500) | Đường dẫn lưu trên server (thư mục `uploads/`) |
-| `parsed_data` | JSON | Dữ liệu AI trích xuất: tên, kỹ năng, kinh nghiệm... |
-| `status` | ENUM | `pending` / `parsed` / `error` |
+| Cột           | Kiểu dữ liệu | Mô tả                                               |
+| ------------- | ------------ | --------------------------------------------------- |
+| `id`          | INT (PK)     | Mã CV                                               |
+| `user_id`     | INT (FK)     | CV của ứng viên nào                                 |
+| `file_name`   | VARCHAR(255) | Tên file gốc người dùng upload                      |
+| `file_path`   | VARCHAR(500) | Đường dẫn lưu trên server (thư mục `uploads/`)      |
+| `parsed_data` | JSON         | Dữ liệu AI trích xuất: tên, kỹ năng, kinh nghiệm... |
+| `status`      | ENUM         | `pending` / `parsed` / `error`                      |
 
 ### Sơ đồ quan hệ
 
@@ -221,6 +222,7 @@ users ──────── companies ──── jobs
 ### `server.js` – Điểm khởi động
 
 File chính khởi động toàn bộ ứng dụng. Nhiệm vụ:
+
 - Khởi tạo Express app
 - Cấu hình middleware: `cors()`, `express.json()`, `express.urlencoded()`
 - Khai báo các route: `/api/auth`, `/api/jobs`, `/api/cv`
@@ -232,6 +234,7 @@ File chính khởi động toàn bộ ứng dụng. Nhiệm vụ:
 ### `config/db.js` – Kết nối cơ sở dữ liệu
 
 Tạo **connection pool** đến MySQL. Dùng pool thay vì `createConnection` vì:
+
 - Tự động tái sử dụng kết nối khi có yêu cầu mới
 - Xử lý nhiều request đồng thời (tối đa 10 kết nối)
 - Tránh lỗi mất kết nối khi server chạy lâu
@@ -255,6 +258,7 @@ Kiểm tra token trong header `Authorization` trước khi cho phép vào route.
 ### `controllers/auth.controller.js` – Đăng ký / Đăng nhập
 
 **Hàm `register`:**
+
 1. Lấy `name`, `email`, `password`, `role` từ `req.body`
 2. Kiểm tra email đã tồn tại trong DB chưa
 3. Mã hóa mật khẩu bằng bcrypt (độ phức tạp: 10)
@@ -262,6 +266,7 @@ Kiểm tra token trong header `Authorization` trước khi cho phép vào route.
 5. Trả về `201 Created` và `userId`
 
 **Hàm `login`:**
+
 1. Tìm user theo email trong DB
 2. So sánh mật khẩu nhập vào với hash bằng `bcrypt.compare`
 3. Tạo JWT token chứa `{ id, role }`, hết hạn sau 7 ngày
@@ -271,28 +276,31 @@ Kiểm tra token trong header `Authorization` trước khi cho phép vào route.
 
 ### `controllers/job.controller.js` – Quản lý tin tuyển dụng
 
-| Hàm | Mô tả |
-|---|---|
+| Hàm          | Mô tả                                                                                                     |
+| ------------ | --------------------------------------------------------------------------------------------------------- |
 | `getAllJobs` | Lấy danh sách tất cả job đang `open`, hỗ trợ filter theo `title`, `location`, `job_type` qua query string |
-| `getJobById` | Lấy chi tiết 1 job kèm thông tin công ty (JOIN companies) |
-| `createJob` | Chỉ employer đã đăng nhập mới tạo được. Tự động lấy `company_id` từ user hiện tại |
-| `deleteJob` | Kiểm tra job phải thuộc công ty của user trước khi xóa |
+| `getJobById` | Lấy chi tiết 1 job kèm thông tin công ty (JOIN companies)                                                 |
+| `createJob`  | Chỉ employer đã đăng nhập mới tạo được. Tự động lấy `company_id` từ user hiện tại                         |
+| `deleteJob`  | Kiểm tra job phải thuộc công ty của user trước khi xóa                                                    |
 
 ---
 
 ### `controllers/cv.controller.js` – Upload CV và AI
 
 **Hàm `extractTextFromPDF`:**
+
 - Dùng thư viện `pdf2json` đọc nội dung text từ file PDF
 - Giải mã URL encoding các ký tự đặc biệt
 - Ghép text tất cả các trang lại thành 1 chuỗi
 
 **Hàm `analyzeCVWithAI`:**
+
 - Gửi nội dung CV đến Groq API (model `llama-3.3-70b-versatile`)
 - Prompt yêu cầu AI trả về JSON với các trường: `name`, `email`, `phone`, `skills`, `experience`, `education`, `summary`
 - Xử lý kết quả: xóa markdown code block, parse JSON
 
 **Hàm `uploadCV`:**
+
 1. Kiểm tra có file không (multer xử lý upload)
 2. Lưu record vào bảng `cvs` với `status=pending`
 3. Gọi `extractTextFromPDF` lấy nội dung
@@ -314,23 +322,23 @@ Kiểm tra token trong header `Authorization` trước khi cho phép vào route.
 
 ### Các trang còn lại
 
-| File | Chức năng |
-|---|---|
-| `index.html` | Trang chủ, banner, danh sách việc làm nổi bật, tìm kiếm nhanh |
-| `search.html` | Tìm kiếm việc làm, lọc theo ngành/lương/địa điểm, phân trang |
-| `job-detail.html` | Chi tiết việc làm, mô tả JD, kỹ năng yêu cầu, thông tin liên hệ NTD |
-| `upload-cv.html` | Upload file PDF, hiển thị kết quả AI phân tích |
-| `profile.html` | Chỉnh sửa hồ sơ cá nhân, kỹ năng, kinh nghiệm |
-| `result.html` | Hiển thị kết quả đánh giá: tên, kỹ năng, kinh nghiệm trích xuất từ CV |
+| File              | Chức năng                                                             |
+| ----------------- | --------------------------------------------------------------------- |
+| `index.html`      | Trang chủ, banner, danh sách việc làm nổi bật, tìm kiếm nhanh         |
+| `search.html`     | Tìm kiếm việc làm, lọc theo ngành/lương/địa điểm, phân trang          |
+| `job-detail.html` | Chi tiết việc làm, mô tả JD, kỹ năng yêu cầu, thông tin liên hệ NTD   |
+| `upload-cv.html`  | Upload file PDF, hiển thị kết quả AI phân tích                        |
+| `profile.html`    | Chỉnh sửa hồ sơ cá nhân, kỹ năng, kinh nghiệm                         |
+| `result.html`     | Hiển thị kết quả đánh giá: tên, kỹ năng, kinh nghiệm trích xuất từ CV |
 
 ### File dùng chung
 
-| File | Mô tả |
-|---|---|
-| `main.css` | CSS chung cho toàn bộ trang |
-| `api.js` | Wrapper gọi fetch đến Backend, tự động đính kèm token |
-| `auth.js` | Kiểm tra đăng nhập, lấy token từ localStorage |
-| `utils.js` | Các hàm tiện ích dùng chung |
+| File       | Mô tả                                                 |
+| ---------- | ----------------------------------------------------- |
+| `main.css` | CSS chung cho toàn bộ trang                           |
+| `api.js`   | Wrapper gọi fetch đến Backend, tự động đính kèm token |
+| `auth.js`  | Kiểm tra đăng nhập, lấy token từ localStorage         |
+| `utils.js` | Các hàm tiện ích dùng chung                           |
 
 ---
 
@@ -338,29 +346,31 @@ Kiểm tra token trong header `Authorization` trước khi cho phép vào route.
 
 Base URL: `http://localhost:3000`
 
-| Method | Endpoint | Xác thực | Mô tả |
-|---|---|---|---|
-| POST | `/api/auth/register` | Không | Đăng ký tài khoản mới |
-| POST | `/api/auth/login` | Không | Đăng nhập, nhận JWT token |
-| GET | `/api/jobs` | Không | Lấy danh sách việc làm (filter: `?title=&location=&job_type=`) |
-| GET | `/api/jobs/:id` | Không | Lấy chi tiết 1 việc làm |
-| POST | `/api/jobs` | JWT (employer) | Đăng tin tuyển dụng mới |
-| DELETE | `/api/jobs/:id` | JWT (employer) | Xóa tin tuyển dụng |
-| POST | `/api/cv` | JWT | Upload CV PDF, AI phân tích trả về JSON |
-| GET | `/api/cv` | JWT | Lấy danh sách CV của user hiện tại |
-| DELETE | `/api/cv/:id` | JWT | Xóa CV (cả file vật lý) |
+| Method | Endpoint             | Xác thực       | Mô tả                                                          |
+| ------ | -------------------- | -------------- | -------------------------------------------------------------- |
+| POST   | `/api/auth/register` | Không          | Đăng ký tài khoản mới                                          |
+| POST   | `/api/auth/login`    | Không          | Đăng nhập, nhận JWT token                                      |
+| GET    | `/api/jobs`          | Không          | Lấy danh sách việc làm (filter: `?title=&location=&job_type=`) |
+| GET    | `/api/jobs/:id`      | Không          | Lấy chi tiết 1 việc làm                                        |
+| POST   | `/api/jobs`          | JWT (employer) | Đăng tin tuyển dụng mới                                        |
+| DELETE | `/api/jobs/:id`      | JWT (employer) | Xóa tin tuyển dụng                                             |
+| POST   | `/api/cv`            | JWT            | Upload CV PDF, AI phân tích trả về JSON                        |
+| GET    | `/api/cv`            | JWT            | Lấy danh sách CV của user hiện tại                             |
+| DELETE | `/api/cv/:id`        | JWT            | Xóa CV (cả file vật lý)                                        |
 
 **Cách gửi token:**
+
 ```
 Authorization: Bearer <token>
 ```
 
 **Ví dụ gọi API từ Frontend:**
+
 ```javascript
-const res = await fetch('http://localhost:3000/api/jobs', {
+const res = await fetch("http://localhost:3000/api/jobs", {
   headers: {
-    'Authorization': `Bearer ${localStorage.getItem('token')}`
-  }
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  },
 });
 const data = await res.json();
 ```
@@ -369,13 +379,13 @@ const data = await res.json();
 
 ## 9. Phân công công việc
 
-| Thành viên | Phụ trách | Chi tiết |
-|---|---|---|
-| **Bạn (Backend)** | Toàn bộ Backend | `server.js`, `db.js`, auth/job/cv controllers, middleware, `.env`, SQL |
-| **Thành viên 1** | Trang chủ & Tìm kiếm | `index.html`, `search.html`, `job-detail.html` |
-| **Thành viên 2** | Upload CV & Hồ sơ | `auth.html`, `upload-cv.html`, `profile.html` |
-| **Thành viên 3** | Kết quả AI & Giao diện chung | `result.html`, `main.css`, `api.js`, `utils.js` |
-| **Thành viên 4** | Báo cáo & Kiểm thử | Viết báo cáo, test chức năng, chỉnh sửa lỗi |
+| Thành viên        | Phụ trách                    | Chi tiết                                                               |
+| ----------------- | ---------------------------- | ---------------------------------------------------------------------- |
+| **Bạn (Backend)** | Toàn bộ Backend              | `server.js`, `db.js`, auth/job/cv controllers, middleware, `.env`, SQL |
+| **Thành viên 1**  | Trang chủ & Tìm kiếm         | `index.html`, `search.html`, `job-detail.html`                         |
+| **Thành viên 2**  | Upload CV & Hồ sơ            | `auth.html`, `upload-cv.html`, `profile.html`                          |
+| **Thành viên 3**  | Kết quả AI & Giao diện chung | `result.html`, `main.css`, `api.js`, `utils.js`                        |
+| **Thành viên 4**  | Báo cáo & Kiểm thử           | Viết báo cáo, test chức năng, chỉnh sửa lỗi                            |
 
 ---
 
@@ -395,4 +405,4 @@ nodemon server.js
 
 ---
 
-*JobFit – Nhóm đồ án 2025*
+_JobFit – Nhóm đồ án 2025_
