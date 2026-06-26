@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobFit - Upload CV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/upload-cv.css">
+   
+</head>
+<body>
+
+    <header>
+        <div class="logo">Job<span>Fit</span></div>
+        <nav class="nav-links">
+            <a href="#">Trang chủ</a>
+            <a href="#">Tìm việc</a>
+            <a href="#" class="active">Upload CV</a>
+        </nav>
+        <div class="auth-buttons">
+            <button class="btn btn-login">Đăng nhập</button>
+            <button class="btn btn-register">Đăng ký</button>
+        </div>
+    </header>
+
+    <main class="hero-section">
+        <div class="hero-container">
+            
+            <div class="hero-text">
+                <h1>TẢI CV LÊN & <br>MỞ KHÓA <br>CƠ HỘI</h1>
+                <p>Tải tệp CV của bạn (PDF or DOCX) để hệ thống AI của JobFit phân tích kỹ năng và đề xuất các vị trí phù hợp nhất.</p>
+                
+                <div class="popular-tags">
+                    <span>Phổ biến:</span>
+                    <div class="tag">Frontend Developer</div>
+                    <div class="tag">Backend Developer</div>
+                    <div class="tag">UI/UX Designer</div>
+                    <div class="tag">Thực tập sinh</div>
+                </div>
+            </div>
+
+            <div class="upload-container">
+                <div class="upload-dashed-box">
+                    <i class="fa-solid fa-file-arrow-up upload-icon"></i>
+                    <p class="upload-title">Kéo & Thả CV của bạn tại đây hoặc</p>
+                    <input type="file" id="cv-upload" style="display: none;" accept=".pdf,.doc,.docx">
+                    <label for="cv-upload" class="btn-upload">CHỌN TỆP</label>
+                    <p class="upload-note">Định dạng hỗ trợ: .pdf, .doc, .docx. Tối đa: 10MB.</p>
+                </div>
+            </div>
+
+            <div class="features-list">
+                <div class="feature-card">
+                    <div class="feature-icon icon-robot">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="feature-info">
+                        <h4>AI phân tích CV</h4>
+                        <p>Trích xuất kỹ năng tự động</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon icon-cv">
+                        <i class="fa-solid fa-file-alt"></i>
+                    </div>
+                    <div class="feature-info">
+                        <h4>CV của bạn</h4>
+                        <p>Được đánh giá chuyên nghiệp</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon icon-check">
+                        <i class="fa-solid fa-check-square"></i>
+                    </div>
+                    <div class="feature-info">
+                        <h4>Kết quả rõ ràng</h4>
+                        <p>Kỹ năng, kinh nghiệm, học vấn</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <section class="stats-section">
+        <div class="stat-item">
+            <h2>0</h2>
+            <p>Phí dịch vụ</p>
+        </div>
+        <div class="stat-item">
+            <h2>AI</h2>
+            <p>Hỗ trợ thông minh</p>
+        </div>
+        <div class="stat-item">
+            <h2>Free</h2>
+            <p>Cho ứng viên</p>
+        </div>
+        <div class="stat-item">
+            <h2>24/7</h2>
+            <p>Hệ thống hoạt động</p>
+        </div>
+    </section>
+
+</body>
+</html>
