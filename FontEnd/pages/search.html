@@ -16,8 +16,10 @@
           <a href="search.html" class="active">Tìm việc</a>
           <a href="upload-cv.html">Upload CV</a>
         </div>
-        <div class="nav-auth" id="navAuth"></div>
-        <button class="nav-toggle" id="navToggle" aria-label="Mở menu">&#9776;</button>
+        <div class="nav-auth" id="navAuth">
+          <!-- JS sẽ điền vào đây -->
+        </div>
+        <button class="nav-toggle" id="navToggle">&#9776;</button>
       </div>
     </nav>
 
@@ -80,17 +82,38 @@
 
             <div class="filter-block">
               <h3>Hình thức</h3>
-              <label><input type="checkbox" name="jobType" value="full-time" /> Toàn thời gian</label>
-              <label><input type="checkbox" name="jobType" value="part-time" /> Bán thời gian</label>
-              <label><input type="checkbox" name="jobType" value="remote" /> Làm từ xa</label>
-              <label><input type="checkbox" name="jobType" value="intern" /> Thực tập</label>
+              <label
+                ><input type="checkbox" name="jobType" value="full-time" /> Toàn
+                thời gian</label
+              >
+              <label
+                ><input type="checkbox" name="jobType" value="part-time" /> Bán
+                thời gian</label
+              >
+              <label
+                ><input type="checkbox" name="jobType" value="remote" /> Làm từ
+                xa</label
+              >
+              <label
+                ><input type="checkbox" name="jobType" value="intern" /> Thực
+                tập</label
+              >
             </div>
 
             <div class="filter-block">
               <h3>Mức độ phù hợp</h3>
-              <label><input type="radio" name="match" value="" checked /> Tất cả</label>
-              <label><input type="radio" name="match" value="skill" /> Có kỹ năng liên quan</label>
-              <label><input type="radio" name="match" value="new" /> Tin mới đăng</label>
+              <label
+                ><input type="radio" name="match" value="" checked /> Tất
+                cả</label
+              >
+              <label
+                ><input type="radio" name="match" value="skill" /> Có kỹ năng
+                liên quan</label
+              >
+              <label
+                ><input type="radio" name="match" value="new" /> Tin mới
+                đăng</label
+              >
             </div>
 
             <button class="btn-clear" id="clearFilters">Xóa bộ lọc</button>
@@ -99,10 +122,16 @@
           <div class="results-content">
             <div class="results-header">
               <div>
-                <p class="results-count" id="resultsCount">Đang tải việc làm...</p>
+                <p class="results-count" id="resultsCount">
+                  Đang tải việc làm...
+                </p>
                 <h2>Danh sách việc làm</h2>
               </div>
-              <select id="sortJobs" class="sort-select" aria-label="Sắp xếp việc làm">
+              <select
+                id="sortJobs"
+                class="sort-select"
+                aria-label="Sắp xếp việc làm"
+              >
                 <option value="newest">Mới nhất</option>
                 <option value="title">Tên công việc A-Z</option>
                 <option value="company">Tên công ty A-Z</option>
