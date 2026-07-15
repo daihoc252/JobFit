@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tìm việc làm - JobFit</title>
+    <link rel="icon" type="image/x-icon" href="../assets/image/favicon.ico" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/search.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">Job<span>Fit</span></a>
+        <div class="nav-links" id="navLinks">
+          <a href="index.html">Trang chủ</a>
+          <a href="search.html" class="active">Tìm việc</a>
+          <a href="upload-cv.html">Upload CV</a>
+        </div>
+        <div class="nav-auth" id="navAuth">
+          <!-- JS sẽ điền vào đây -->
+        </div>
+        <button class="nav-toggle" id="navToggle">&#9776;</button>
+      </div>
+    </nav>
+
+    <main>
+      <section class="search-hero">
+        <div class="container search-hero-inner">
+          <div>
+            <p class="section-eyebrow">Tìm kiếm thông minh</p>
+            <h1>Cơ hội phù hợp đang chờ bạn</h1>
+            <p>
+              Lọc việc theo vị trí, địa điểm, hình thức làm việc và kỹ năng để
+              nhanh chóng tìm được công việc hợp với hồ sơ của bạn.
+            </p>
+          </div>
+          <a href="upload-cv.html" class="hero-action">Tải CV để được gợi ý</a>
+        </div>
+      </section>
+
+      <section class="search-panel">
+        <div class="container">
+          <div class="search-box">
+            <div class="field keyword-field">
+              <label for="searchKeyword">Từ khóa</label>
+              <input
+                type="text"
+                id="searchKeyword"
+                placeholder="Ví dụ: Frontend, React, UI/UX..."
+              />
+            </div>
+            <div class="field">
+              <label for="searchLocation">Địa điểm</label>
+              <select id="searchLocation">
+                <option value="">Tất cả địa điểm</option>
+                <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                <option value="Hà Nội">Hà Nội</option>
+                <option value="Đà Nẵng">Đà Nẵng</option>
+                <option value="remote">Remote</option>
+              </select>
+            </div>
+            <button class="btn-search-page" id="searchButton">Tìm kiếm</button>
+          </div>
+
+          <div class="quick-filters" aria-label="Từ khóa tìm kiếm nhanh">
+            <button data-keyword="Frontend Developer">Frontend</button>
+            <button data-keyword="Backend Developer">Backend</button>
+            <button data-keyword="UI/UX Designer">UI/UX</button>
+            <button data-keyword="Data Analyst">Data Analyst</button>
+            <button data-keyword="Thực tập sinh">Thực tập sinh</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="results-section">
+        <div class="container results-layout">
+          <aside class="filters">
+            <div class="filter-block">
+              <h2>Bộ lọc</h2>
+              <p>Tinh chỉnh kết quả theo nhu cầu ứng tuyển.</p>
+            </div>
+
+            <div class="filter-block">
+              <h3>Hình thức</h3>
+              <label
+                ><input type="checkbox" name="jobType" value="full-time" /> Toàn
+                thời gian</label
+              >
+              <label
+                ><input type="checkbox" name="jobType" value="part-time" /> Bán
+                thời gian</label
+              >
+              <label
+                ><input type="checkbox" name="jobType" value="remote" /> Làm từ
+                xa</label
+              >
+              <label
+                ><input type="checkbox" name="jobType" value="intern" /> Thực
+                tập</label
+              >
+            </div>
+
+            <div class="filter-block">
+              <h3>Mức độ phù hợp</h3>
+              <label
+                ><input type="radio" name="match" value="" checked /> Tất
+                cả</label
+              >
+              <label
+                ><input type="radio" name="match" value="skill" /> Có kỹ năng
+                liên quan</label
+              >
+              <label
+                ><input type="radio" name="match" value="new" /> Tin mới
+                đăng</label
+              >
+            </div>
+
+            <button class="btn-clear" id="clearFilters">Xóa bộ lọc</button>
+          </aside>
+
+          <div class="results-content">
+            <div class="results-header">
+              <div>
+                <p class="results-count" id="resultsCount">
+                  Đang tải việc làm...
+                </p>
+                <h2>Danh sách việc làm</h2>
+              </div>
+              <select
+                id="sortJobs"
+                class="sort-select"
+                aria-label="Sắp xếp việc làm"
+              >
+                <option value="newest">Mới nhất</option>
+                <option value="title">Tên công việc A-Z</option>
+                <option value="company">Tên công ty A-Z</option>
+              </select>
+            </div>
+
+            <div class="job-list" id="jobResults">
+              <div class="job-skeleton"></div>
+              <div class="job-skeleton"></div>
+              <div class="job-skeleton"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <p class="footer-logo">Job<span>Fit</span></p>
+            <p>Nền tảng tìm việc thông minh<br />được hỗ trợ bởi AI</p>
+          </div>
+          <div class="footer-links">
+            <p class="footer-heading">Dành cho ứng viên</p>
+            <a href="search.html">Tìm việc làm</a>
+            <a href="upload-cv.html">Upload CV</a>
+            <a href="profile.html">Hồ sơ cá nhân</a>
+          </div>
+          <div class="footer-links">
+            <p class="footer-heading">Dành cho NTD</p>
+            <a href="auth.html">Đăng ký tài khoản</a>
+            <a href="auth.html">Đăng tin tuyển dụng</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 JobFit - Đồ án môn học - FA STUDIO</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/search.js"></script>
+  </body>
+</html>

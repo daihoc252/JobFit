@@ -32,18 +32,77 @@ const analyzeCVWithAI = async (cvText) => {
     messages: [
       {
         role: "user",
-        content: `Bạn là chuyên gia phân tích CV. Hãy phân tích CV sau và trả về JSON với cấu trúc:
+        content: `Bạn là chuyên gia đánh giá CV tuyển dụng hàng đầu. Hãy phân tích CV sau và trả về JSON với cấu trúc bên dưới.
+
+Yêu cầu đánh giá:
+- Chấm điểm từng khu vực trên thang 10
+- Chỉ ra cụ thể điểm chưa tốt
+- Đưa ra gợi ý chỉnh sửa giúp CV gây ấn tượng với nhà tuyển dụng
+- Nếu khu vực nào không có trong CV thì điểm = 0 và ghi rõ "Chưa có phần này"
+
+Trả về JSON với cấu trúc sau (chỉ JSON thuần túy, không giải thích thêm):
 {
-  "name": "tên ứng viên",
-  "email": "email nếu có",
-  "phone": "số điện thoại nếu có",
-  "skills": ["kỹ năng 1", "kỹ năng 2"],
-  "experience": "số năm kinh nghiệm hoặc mô tả ngắn",
-  "education": "trình độ học vấn",
-  "summary": "tóm tắt ngắn về ứng viên trong 2-3 câu"
+  "overall_score": <số từ 1-10>,
+  "overall_comment": "<nhận xét tổng quan 1-2 câu>",
+  "name": "<tên ứng viên>",
+  "email": "<email nếu có>",
+  "phone": "<số điện thoại nếu có>",
+  "sections": [
+    {
+      "name": "Thông tin cá nhân",
+      "score": <0-10>,
+      "status": "<good|warning|bad>",
+      "comment": "<nhận xét ngắn>",
+      "suggestion": "<gợi ý cải thiện cụ thể hoặc null nếu tốt rồi>",
+      "example": "<ví dụ câu/đoạn viết lại tốt hơn hoặc null>"
+    },
+    {
+      "name": "Mục tiêu nghề nghiệp",
+      "score": <0-10>,
+      "status": "<good|warning|bad>",
+      "comment": "<nhận xét ngắn>",
+      "suggestion": "<gợi ý cải thiện cụ thể hoặc null>",
+      "example": "<ví dụ hoặc null>"
+    },
+    {
+      "name": "Kinh nghiệm làm việc",
+      "score": <0-10>,
+      "status": "<good|warning|bad>",
+      "comment": "<nhận xét ngắn>",
+      "suggestion": "<gợi ý cải thiện cụ thể hoặc null>",
+      "example": "<ví dụ hoặc null>"
+    },
+    {
+      "name": "Kỹ năng",
+      "score": <0-10>,
+      "status": "<good|warning|bad>",
+      "comment": "<nhận xét ngắn>",
+      "suggestion": "<gợi ý cải thiện cụ thể hoặc null>",
+      "example": "<ví dụ hoặc null>"
+    },
+    {
+      "name": "Học vấn",
+      "score": <0-10>,
+      "status": "<good|warning|bad>",
+      "comment": "<nhận xét ngắn>",
+      "suggestion": "<gợi ý cải thiện cụ thể hoặc null>",
+      "example": "<ví dụ hoặc null>"
+    },
+    {
+      "name": "Thành tích & Dự án",
+      "score": <0-10>,
+      "status": "<good|warning|bad>",
+      "comment": "<nhận xét ngắn>",
+      "suggestion": "<gợi ý cải thiện cụ thể hoặc null>",
+      "example": "<ví dụ hoặc null>"
+    }
+  ]
 }
 
-Chỉ trả về JSON thuần túy, không giải thích thêm.
+Quy tắc status:
+- good: điểm >= 8
+- warning: điểm 5-7
+- bad: điểm < 5
 
 CV cần phân tích:
 ${cvText}`,
@@ -56,7 +115,6 @@ ${cvText}`,
   const cleaned = text.replace(/```json|```/g, "").trim();
   return JSON.parse(cleaned);
 };
-
 // ── UPLOAD CV ──────────────────────────────────────────────
 const uploadCV = async (req, res) => {
   try {
