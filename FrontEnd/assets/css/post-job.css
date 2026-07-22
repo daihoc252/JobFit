@@ -1,0 +1,458 @@
+/* ============================================
+   post-job.css – CSS trang đăng tin tuyển dụng
+   ============================================ */
+
+.post-job-page {
+  background: var(--bg);
+  padding: 32px 0 80px;
+  min-height: 80vh;
+}
+
+/* ── Breadcrumb ───────────────────────────── */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-sub);
+  margin-bottom: 24px;
+}
+.breadcrumb a {
+  color: var(--primary);
+  font-weight: 500;
+}
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+/* ── Premium Gate ─────────────────────────── */
+.premium-gate {
+  background: white;
+  border-radius: var(--radius);
+  padding: 64px 40px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.gate-icon {
+  font-size: 56px;
+  margin-bottom: 16px;
+}
+.premium-gate h2 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.premium-gate p {
+  color: var(--text-sub);
+  margin-bottom: 24px;
+  font-size: 15px;
+}
+
+/* ── Form Header ──────────────────────────── */
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+.form-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.form-sub {
+  font-size: 14px;
+  color: var(--text-sub);
+}
+
+/* ── Grid 2 cột ───────────────────────────── */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* ── Form Card ────────────────────────────── */
+.form-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+.form-card:last-child {
+  margin-bottom: 0;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--primary-lt);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.optional-badge {
+  font-size: 11px;
+  font-weight: 600;
+  background: #f3f4f6;
+  color: var(--text-sub);
+  padding: 2px 8px;
+  border-radius: 99px;
+}
+
+/* ── Form Elements ────────────────────────── */
+.form-group {
+  margin-bottom: 18px;
+}
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.required {
+  color: var(--error);
+}
+
+.form-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--text);
+  outline: none;
+  transition: border 0.15s;
+  background: white;
+}
+.form-input:focus {
+  border-color: var(--primary);
+}
+.form-input.error {
+  border-color: var(--error);
+}
+
+.form-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text);
+  outline: none;
+  resize: vertical;
+  transition: border 0.15s;
+  line-height: 1.6;
+}
+.form-textarea:focus {
+  border-color: var(--primary);
+}
+
+.form-hint {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 5px;
+}
+
+.char-count {
+  font-size: 12px;
+  color: var(--text-light);
+  text-align: right;
+  margin-top: 5px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ── Salary ───────────────────────────────── */
+.salary-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.salary-type {
+  max-width: 200px;
+}
+
+.salary-range,
+.salary-fixed {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.salary-dash {
+  color: var(--text-sub);
+  font-weight: 600;
+}
+.salary-unit {
+  font-size: 13px;
+  color: var(--text-sub);
+  white-space: nowrap;
+}
+
+.salary-range .form-input,
+.salary-fixed .form-input {
+  max-width: 150px;
+}
+
+/* ── Skills Input ─────────────────────────── */
+.skill-input-wrap {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.btn-add-skill {
+  background: var(--primary);
+  color: white;
+  padding: 0 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+  border: none;
+}
+.btn-add-skill:hover {
+  background: var(--primary-dk);
+}
+
+.skills-selected {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 32px;
+}
+
+.skill-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary-lt);
+  color: var(--primary);
+  padding: 5px 10px;
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.skill-tag button {
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+.skill-tag button:hover {
+  opacity: 1;
+}
+
+/* ── Sidebar ──────────────────────────────── */
+.form-sidebar {
+  position: sticky;
+  top: calc(var(--nav-h) + 16px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Preview card */
+.preview-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.preview-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-sub);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.preview-box {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+}
+
+.preview-logo {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.preview-job-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.preview-company {
+  font-size: 13px;
+  color: var(--text-sub);
+  margin-bottom: 10px;
+}
+
+.preview-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--text-sub);
+  margin-bottom: 10px;
+}
+
+.preview-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* Checklist card */
+.checklist-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.checklist-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-sub);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.check-item {
+  font-size: 13px;
+  color: var(--text-light);
+  padding-left: 20px;
+  position: relative;
+}
+
+.check-item::before {
+  content: "○";
+  position: absolute;
+  left: 0;
+  color: var(--border);
+}
+
+.check-item.done {
+  color: #059669;
+}
+
+.check-item.done::before {
+  content: "✓";
+  color: #059669;
+}
+
+/* Submit buttons */
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.2px;
+}
+.btn-submit:hover {
+  background: var(--primary-dk);
+  transform: translateY(-1px);
+}
+.btn-submit:disabled {
+  background: #a5b4fc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-draft {
+  width: 100%;
+  padding: 12px;
+  background: white;
+  color: var(--text-sub);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-draft:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.submit-note {
+  font-size: 12px;
+  color: var(--text-light);
+  text-align: center;
+}
+
+/* ── Responsive ───────────────────────────── */
+@media (max-width: 900px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-card {
+    padding: 20px;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .form-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .salary-range,
+  .salary-fixed {
+    flex-wrap: wrap;
+  }
+}

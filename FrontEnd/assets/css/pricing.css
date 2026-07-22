@@ -1,0 +1,328 @@
+/* ============================================
+   pricing.css – CSS trang bảng giá
+   ============================================ */
+
+/* ── Hero ─────────────────────────────────── */
+.pricing-hero {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4f46e5 100%);
+  padding: 72px 0 80px;
+  text-align: center;
+}
+
+.pricing-hero .section-eyebrow {
+  color: #c7d2fe;
+  background: rgba(255,255,255,0.1);
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 99px;
+  border: 1px solid rgba(255,255,255,0.15);
+  margin-bottom: 20px;
+}
+
+.pricing-title {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 900;
+  color: white;
+  letter-spacing: -1px;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.pricing-sub {
+  font-size: 16px;
+  color: #c7d2fe;
+  margin-bottom: 36px;
+}
+
+/* Toggle tháng/năm */
+.billing-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.billing-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #a5b4fc;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+}
+.billing-label.active { color: white; }
+
+.save-badge {
+  background: #10b981;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+  cursor: pointer;
+}
+
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.2);
+  border-radius: 99px;
+  transition: 0.3s;
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.toggle-switch input:checked + .toggle-slider { background: #10b981; }
+.toggle-switch input:checked + .toggle-slider::before { transform: translateX(22px); }
+
+/* ── Pricing Cards ────────────────────────── */
+.pricing-section {
+  padding: 64px 0 80px;
+  background: var(--bg);
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.pricing-card {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: var(--shadow);
+  border: 2px solid transparent;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Card nổi bật */
+.card-featured {
+  border-color: var(--primary);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+.card-featured:hover { transform: translateY(-12px); }
+
+.featured-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 16px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+/* Plan header */
+.plan-header { text-align: center; margin-bottom: 24px; }
+
+.plan-icon { font-size: 36px; margin-bottom: 10px; }
+
+.plan-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.plan-desc {
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+/* Plan price */
+.plan-price {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.price-amount {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--primary);
+  letter-spacing: -1px;
+}
+
+.price-period {
+  font-size: 14px;
+  color: var(--text-light);
+  margin-left: 4px;
+}
+
+.price-note {
+  text-align: center;
+  font-size: 12px;
+  color: #10b981;
+  font-weight: 600;
+  min-height: 18px;
+  margin-bottom: 20px;
+}
+
+/* Features list */
+.plan-features {
+  list-style: none;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.feature-no { color: var(--text-light); }
+
+.feature-check {
+  width: 20px;
+  height: 20px;
+  background: #d1fae5;
+  color: #059669;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.feature-x {
+  width: 20px;
+  height: 20px;
+  background: #f3f4f6;
+  color: var(--text-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+/* Buttons */
+.btn-plan {
+  width: 100%;
+  padding: 13px;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: none;
+  display: block;
+  text-align: center;
+}
+
+.btn-plan-primary {
+  background: var(--primary);
+  color: white;
+}
+.btn-plan-primary:hover { background: var(--primary-dk); transform: translateY(-1px); }
+
+.btn-plan-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+.btn-plan-outline:hover { background: var(--primary-lt); }
+.btn-plan-outline:disabled {
+  color: var(--text-light);
+  border-color: var(--border);
+  cursor: not-allowed;
+}
+
+/* ── FAQ ──────────────────────────────────── */
+.faq-section { background: white; }
+
+.faq-list {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.faq-question {
+  width: 100%;
+  padding: 18px 20px;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.faq-question:hover { background: var(--bg); }
+
+.faq-icon {
+  font-size: 20px;
+  color: var(--primary);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.faq-answer {
+  display: none;
+  padding: 0 20px 18px;
+  font-size: 14px;
+  color: var(--text-sub);
+  line-height: 1.7;
+}
+
+.faq-item.open .faq-answer { display: block; }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-item.open .faq-question { color: var(--primary); }
+
+/* ── Responsive ───────────────────────────── */
+@media (max-width: 900px) {
+  .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+  .card-featured { transform: none; }
+  .card-featured:hover { transform: translateY(-4px); }
+}

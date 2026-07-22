@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Nhà tuyển dụng – JobFit</title>
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/employer-dashboard.css" />
+  </head>
+  <body>
+
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">Job<span>Fit</span></a>
+        <div class="nav-links" id="navLinks">
+          <a href="index.html">Trang chủ</a>
+          <a href="search.html">Tìm việc</a>
+          <a href="upload-cv.html">Upload CV</a>
+        </div>
+        <div class="nav-auth" id="navAuth"></div>
+        <button class="nav-toggle" id="navToggle">&#9776;</button>
+      </div>
+    </nav>
+
+    <main class="dashboard-page">
+      <div class="container">
+
+        <div class="dashboard-header">
+          <div>
+            <h1 class="dashboard-title" id="dashTitle">Dashboard</h1>
+            <p class="dashboard-sub">Quản lý tin tuyển dụng của bạn</p>
+          </div>
+          <div class="dashboard-actions">
+            <div class="premium-status" id="premiumStatus"></div>
+            <a href="post-job.html" class="btn-primary" id="btnPostJob">+ Đăng tin mới</a>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">📋</div>
+            <div>
+              <p class="stat-num" id="statTotal">0</p>
+              <p class="stat-label">Tổng tin đăng</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🟢</div>
+            <div>
+              <p class="stat-num" id="statOpen">0</p>
+              <p class="stat-label">Đang tuyển</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🔴</div>
+            <div>
+              <p class="stat-num" id="statClosed">0</p>
+              <p class="stat-label">Đã đóng</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💎</div>
+            <div>
+              <p class="stat-num" id="statPremium">–</p>
+              <p class="stat-label">Trạng thái gói</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-tabs">
+          <button class="dash-tab active" onclick="switchTab('all', this)">Tất cả tin</button>
+          <button class="dash-tab" onclick="switchTab('open', this)">Đang tuyển</button>
+          <button class="dash-tab" onclick="switchTab('closed', this)">Đã đóng</button>
+          <button class="dash-tab" onclick="switchTab('profile', this)">🏢 Hồ sơ công ty</button>
+        </div>
+
+        <div id="loadingJobs" class="loading-state">
+          <div class="loading-spinner"></div>
+          <p>Đang tải danh sách tin...</p>
+        </div>
+
+        <div id="jobList" style="display:none"></div>
+
+        <div id="emptyState" style="display:none" class="empty-state">
+          <div class="empty-icon">📭</div>
+          <h3>Chưa có tin tuyển dụng</h3>
+          <p>Bắt đầu đăng tin để tìm kiếm ứng viên phù hợp</p>
+          <a href="post-job.html" class="btn-primary" style="margin-top:16px; display:inline-block">
+            + Đăng tin đầu tiên
+          </a>
+        </div>
+
+        <!-- Profile công ty -->
+        <div id="companyProfile" style="display:none">
+          <div class="profile-card">
+
+            <div class="profile-card-header">
+              <h2>🏢 Thông tin công ty</h2>
+              <span id="companySaveStatus"></span>
+            </div>
+
+            <div class="logo-upload">
+              <div id="logoPreview" class="logo-preview">🏢</div>
+              <div>
+                <input type="file" id="logoInput" accept="image/*" style="display:none" onchange="previewLogo(this)"/>
+                <label for="logoInput" class="btn-logo">📷 Chọn logo</label>
+                <p style="font-size:12px; color:var(--text-light); margin-top:6px">PNG, JPG · Tối đa 2MB</p>
+              </div>
+            </div>
+
+            <div class="profile-grid">
+              <div style="grid-column:1/-1">
+                <label class="profile-label">Tên công ty <span style="color:#ef4444">*</span></label>
+                <input type="text" id="companyName" class="form-input" placeholder="VD: FPT Software" />
+              </div>
+              <div>
+                <label class="profile-label">Email liên hệ <span style="color:#ef4444">*</span></label>
+                <input type="email" id="companyEmail" class="form-input" placeholder="hr@company.com" />
+              </div>
+              <div>
+                <label class="profile-label">Số điện thoại</label>
+                <input type="text" id="companyPhone" class="form-input" placeholder="024 7300 7300" />
+              </div>
+              <div style="grid-column:1/-1">
+                <label class="profile-label">Địa chỉ</label>
+                <input type="text" id="companyAddress" class="form-input" placeholder="Tòa nhà ABC, Đường XYZ, TP. Hồ Chí Minh" />
+              </div>
+              <div style="grid-column:1/-1">
+                <label class="profile-label">Website</label>
+                <input type="text" id="companyWebsite" class="form-input" placeholder="https://company.com" />
+              </div>
+              <div style="grid-column:1/-1">
+                <label class="profile-label">Mô tả công ty</label>
+                <textarea id="companyDesc" class="form-textarea" rows="4"
+                  placeholder="Giới thiệu về công ty, văn hóa, lĩnh vực hoạt động..."></textarea>
+              </div>
+            </div>
+
+            <button onclick="saveCompanyProfile()" class="btn-save-profile">
+              💾 Lưu thông tin công ty
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Modal xóa -->
+    <div class="modal-overlay" id="deleteModal" style="display:none">
+      <div class="modal-box">
+        <div class="modal-icon">🗑</div>
+        <h2>Xác nhận xóa tin</h2>
+        <p>Bạn có chắc muốn xóa tin tuyển dụng này?<br/>Hành động này không thể hoàn tác.</p>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeDeleteModal()">Hủy</button>
+          <button class="btn-confirm-delete" id="btnConfirmDelete">Xóa tin</button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <p class="footer-logo">Job<span>Fit</span></p>
+            <p>Nền tảng tìm việc thông minh<br />được hỗ trợ bởi AI</p>
+          </div>
+          <div class="footer-links">
+            <p class="footer-heading">Dành cho ứng viên</p>
+            <a href="search.html">Tìm việc làm</a>
+            <a href="upload-cv.html">Upload CV</a>
+          </div>
+          <div class="footer-links">
+            <p class="footer-heading">Dành cho NTD</p>
+            <a href="pricing.html">Bảng giá</a>
+            <a href="post-job.html">Đăng tin tuyển dụng</a>
+            <a href="employer-dashboard.html">Dashboard</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 JobFit – Đồ án môn học - FA STUDIO</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/employer-dashboard.js"></script>
+  </body>
+</html>

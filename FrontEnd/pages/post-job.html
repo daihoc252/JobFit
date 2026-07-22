@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng tin tuyển dụng – JobFit</title>
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/post-job.css" />
+  </head>
+  <body>
+    <!-- ── NAVBAR ─────────────────────────────────────────── -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">Job<span>Fit</span></a>
+        <div class="nav-links" id="navLinks">
+          <a href="index.html">Trang chủ</a>
+          <a href="search.html">Tìm việc</a>
+          <a href="upload-cv.html">Upload CV</a>
+        </div>
+        <div class="nav-auth" id="navAuth"></div>
+        <button class="nav-toggle" id="navToggle">&#9776;</button>
+      </div>
+    </nav>
+
+    <!-- ── MAIN ───────────────────────────────────────────── -->
+    <main class="post-job-page">
+      <div class="container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+          <a href="employer-dashboard.html">Dashboard</a>
+          <span>›</span>
+          <span>Đăng tin tuyển dụng</span>
+        </div>
+
+        <!-- Chặn nếu chưa premium -->
+        <div id="premiumGate" style="display: none" class="premium-gate">
+          <div class="gate-icon">🔒</div>
+          <h2>Tính năng Premium</h2>
+          <p>Bạn cần nâng cấp tài khoản Premium để đăng tin tuyển dụng</p>
+          <a href="pricing.html" class="btn-primary">Xem bảng giá</a>
+        </div>
+
+        <!-- Form đăng tin -->
+        <div id="postJobForm">
+          <div class="form-header">
+            <div>
+              <h1 class="form-title">📝 Đăng tin tuyển dụng</h1>
+              <p class="form-sub">
+                Điền đầy đủ thông tin để thu hút ứng viên phù hợp
+              </p>
+            </div>
+            <a href="employer-dashboard.html" class="btn-ghost">← Quay lại</a>
+          </div>
+
+          <div class="form-grid">
+            <!-- Cột trái: thông tin chính -->
+            <div class="form-main">
+              <!-- Thông tin công ty -->
+              <div class="form-card" id="companyCard">
+                <h2 class="card-title">🏢 Thông tin công ty</h2>
+                <div id="companyInfo">
+                  <!-- JS render vào đây -->
+                </div>
+              </div>
+              <!-- Thông tin cơ bản -->
+              <div class="form-card">
+                <h2 class="card-title">Thông tin cơ bản</h2>
+
+                <div class="form-group">
+                  <label class="form-label">
+                    Tên vị trí tuyển dụng <span class="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="jobTitle"
+                    class="form-input"
+                    placeholder="VD: Frontend Developer, Marketing Manager..."
+                  />
+                  <p class="form-hint">
+                    Tên vị trí rõ ràng giúp ứng viên dễ tìm kiếm hơn
+                  </p>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">
+                      Loại hình công việc <span class="required">*</span>
+                    </label>
+                    <select id="jobType" class="form-input">
+                      <option value="">-- Chọn loại hình --</option>
+                      <option value="full-time">Toàn thời gian</option>
+                      <option value="part-time">Bán thời gian</option>
+                      <option value="remote">Làm từ xa (Remote)</option>
+                      <option value="intern">Thực tập</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">
+                      Địa điểm làm việc <span class="required">*</span>
+                    </label>
+                    <select id="jobLocation" class="form-input">
+                      <option value="">-- Chọn địa điểm --</option>
+                      <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                      <option value="Hà Nội">Hà Nội</option>
+                      <option value="Đà Nẵng">Đà Nẵng</option>
+                      <option value="Cần Thơ">Cần Thơ</option>
+                      <option value="Bình Dương">Bình Dương</option>
+                      <option value="Đồng Nai">Đồng Nai</option>
+                      <option value="Remote">Remote</option>
+                      <option value="Khác">Khác</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Mức lương</label>
+                  <div class="salary-wrap">
+                    <select
+                      id="salaryType"
+                      class="form-input salary-type"
+                      onchange="toggleSalary()"
+                    >
+                      <option value="range">Khoảng lương</option>
+                      <option value="fixed">Lương cố định</option>
+                      <option value="negotiable">Thỏa thuận</option>
+                    </select>
+                    <div id="salaryRange" class="salary-range">
+                      <input
+                        type="number"
+                        id="salaryMin"
+                        class="form-input"
+                        placeholder="Từ (triệu)"
+                        min="0"
+                      />
+                      <span class="salary-dash">–</span>
+                      <input
+                        type="number"
+                        id="salaryMax"
+                        class="form-input"
+                        placeholder="Đến (triệu)"
+                        min="0"
+                      />
+                      <span class="salary-unit">triệu/tháng</span>
+                    </div>
+                    <div
+                      id="salaryFixed"
+                      class="salary-fixed"
+                      style="display: none"
+                    >
+                      <input
+                        type="number"
+                        id="salaryFixedVal"
+                        class="form-input"
+                        placeholder="Mức lương (triệu)"
+                        min="0"
+                      />
+                      <span class="salary-unit">triệu/tháng</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mô tả công việc -->
+              <div class="form-card">
+                <h2 class="card-title">
+                  Mô tả công việc <span class="required">*</span>
+                </h2>
+                <textarea
+                  id="jobDescription"
+                  class="form-textarea"
+                  placeholder="Mô tả chi tiết về công việc, nhiệm vụ, trách nhiệm...&#10;&#10;VD:&#10;- Phát triển và duy trì giao diện website&#10;- Làm việc với team backend để tích hợp API&#10;- Tham gia review code và cải thiện hiệu suất"
+                  rows="8"
+                ></textarea>
+                <p class="char-count" id="descCount">0 / 2000 ký tự</p>
+              </div>
+
+              <!-- Yêu cầu ứng viên -->
+              <div class="form-card">
+                <h2 class="card-title">Yêu cầu ứng viên</h2>
+
+                <div class="form-group">
+                  <label class="form-label">
+                    Kỹ năng yêu cầu <span class="required">*</span>
+                  </label>
+                  <div class="skill-input-wrap">
+                    <input
+                      type="text"
+                      id="skillInput"
+                      class="form-input"
+                      placeholder="Nhập kỹ năng rồi bấm Enter hoặc dấu phẩy..."
+                      onkeydown="handleSkillInput(event)"
+                    />
+                    <button class="btn-add-skill" onclick="addSkill()">
+                      + Thêm
+                    </button>
+                  </div>
+                  <div class="skills-selected" id="skillsSelected">
+                    <!-- Skills badge render ở đây -->
+                  </div>
+                  <p class="form-hint">
+                    VD: JavaScript, ReactJS, NodeJS, MySQL...
+                  </p>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Kinh nghiệm</label>
+                  <select id="jobExperience" class="form-input">
+                    <option value="">-- Chọn kinh nghiệm --</option>
+                    <option value="Không yêu cầu kinh nghiệm">
+                      Không yêu cầu kinh nghiệm
+                    </option>
+                    <option value="Dưới 1 năm">Dưới 1 năm</option>
+                    <option value="1 - 2 năm">1 – 2 năm</option>
+                    <option value="2 - 3 năm">2 – 3 năm</option>
+                    <option value="3 - 5 năm">3 – 5 năm</option>
+                    <option value="Trên 5 năm">Trên 5 năm</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Trình độ học vấn</label>
+                  <select id="jobEducation" class="form-input">
+                    <option value="">-- Không yêu cầu --</option>
+                    <option value="Trung cấp">Trung cấp</option>
+                    <option value="Cao đẳng">Cao đẳng</option>
+                    <option value="Đại học">Đại học</option>
+                    <option value="Thạc sĩ">Thạc sĩ</option>
+                    <option value="Tiến sĩ">Tiến sĩ</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Thông tin thêm (không bắt buộc) -->
+              <div class="form-card">
+                <h2 class="card-title">
+                  Thông tin thêm
+                  <span class="optional-badge">Không bắt buộc</span>
+                </h2>
+
+                <div class="form-group">
+                  <label class="form-label">Phúc lợi & Quyền lợi</label>
+                  <textarea
+                    id="jobBenefits"
+                    class="form-textarea"
+                    placeholder="VD:&#10;- Thưởng tháng 13, thưởng KPI&#10;- Bảo hiểm sức khỏe cao cấp&#10;- 12 ngày phép/năm&#10;- Cơ hội đào tạo và phát triển"
+                    rows="4"
+                  ></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Số lượng tuyển</label>
+                  <input
+                    type="number"
+                    id="jobQuantity"
+                    class="form-input"
+                    placeholder="VD: 2"
+                    min="1"
+                    style="max-width: 160px"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Hạn nộp hồ sơ</label>
+                  <input
+                    type="date"
+                    id="jobDeadline"
+                    class="form-input"
+                    style="max-width: 220px"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Cột phải: preview + submit -->
+            <div class="form-sidebar">
+              <!-- Preview tin đăng -->
+              <div class="preview-card">
+                <h3 class="preview-title">👁 Xem trước</h3>
+                <div class="preview-box" id="previewBox">
+                  <div class="preview-logo">🏢</div>
+                  <p class="preview-job-title" id="previewTitle">
+                    Tên vị trí...
+                  </p>
+                  <p class="preview-company" id="previewCompany">
+                    Tên công ty của bạn
+                  </p>
+                  <div class="preview-meta" id="previewMeta">
+                    <span>📍 Địa điểm</span>
+                    <span>💼 Loại hình</span>
+                    <span>💰 Lương</span>
+                  </div>
+                  <div class="preview-skills" id="previewSkills"></div>
+                </div>
+              </div>
+
+              <!-- Checklist -->
+              <div class="checklist-card">
+                <h3 class="checklist-title">✅ Danh sách kiểm tra</h3>
+                <ul class="checklist">
+                  <li id="check-title" class="check-item">Tên vị trí</li>
+                  <li id="check-type" class="check-item">
+                    Loại hình công việc
+                  </li>
+                  <li id="check-location" class="check-item">Địa điểm</li>
+                  <li id="check-desc" class="check-item">Mô tả công việc</li>
+                  <li id="check-skills" class="check-item">Kỹ năng yêu cầu</li>
+                </ul>
+              </div>
+
+              <!-- Nút submit -->
+              <button
+                class="btn-submit"
+                id="btnSubmit"
+                onclick="handleSubmit()"
+              >
+                🚀 Đăng tin tuyển dụng
+              </button>
+
+              <button class="btn-draft" onclick="handleDraft()">
+                💾 Lưu nháp
+              </button>
+              <button
+                class="btn-draft"
+                onclick="loadDraft()"
+                style="color: var(--primary); border-color: var(--primary)"
+              >
+                📂 Tải nháp đã lưu
+              </button>
+              <p class="submit-note">
+                Tin sẽ được hiển thị ngay sau khi đăng thành công
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ── FOOTER ─────────────────────────────────────────── -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <p class="footer-logo">Job<span>Fit</span></p>
+            <p>Nền tảng tìm việc thông minh<br />được hỗ trợ bởi AI</p>
+          </div>
+          <div class="footer-links">
+            <p class="footer-heading">Dành cho ứng viên</p>
+            <a href="search.html">Tìm việc làm</a>
+            <a href="upload-cv.html">Upload CV</a>
+            <a href="profile.html">Hồ sơ cá nhân</a>
+          </div>
+          <div class="footer-links">
+            <p class="footer-heading">Dành cho NTD</p>
+            <a href="auth.html">Đăng ký tài khoản</a>
+            <a href="pricing.html">Bảng giá</a>
+            <a href="post-job.html">Đăng tin tuyển dụng</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 JobFit – Đồ án môn học - FA STUDIO</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/post-job.js"></script>
+  </body>
+</html>

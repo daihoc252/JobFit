@@ -23,6 +23,7 @@ app.use("/uploads", express.static("uploads"));
 app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/jobs", require("./routes/job.routes"));
 app.use("/api/cv", require("./routes/cv.routes"));
+app.use("/api/company", require("./routes/company.routes"));
 
 app.get("/", (req, res) => {
   res.json({ message: "JobFit API đang chạy!" });

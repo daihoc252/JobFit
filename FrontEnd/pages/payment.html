@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thanh toán – JobFit</title>
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/payment.css" />
+  </head>
+  <body>
+    <!-- ── NAVBAR ─────────────────────────────────────────── -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">Job<span>Fit</span></a>
+        <div class="nav-links" id="navLinks">
+          <a href="index.html">Trang chủ</a>
+          <a href="search.html">Tìm việc</a>
+          <a href="upload-cv.html">Upload CV</a>
+        </div>
+        <div class="nav-auth" id="navAuth"></div>
+        <button class="nav-toggle" id="navToggle">&#9776;</button>
+      </div>
+    </nav>
+
+    <!-- ── MAIN ───────────────────────────────────────────── -->
+    <main class="payment-page">
+      <div class="container">
+        <a href="pricing.html" class="btn-back">← Quay lại bảng giá</a>
+
+        <div class="payment-grid">
+          <!-- Cột trái: form thanh toán -->
+          <div class="payment-form-wrap">
+            <h1 class="payment-title">Thông tin thanh toán</h1>
+
+            <!-- Chọn phương thức -->
+            <div class="payment-methods">
+              <button
+                class="method-btn active"
+                id="methodCard"
+                onclick="selectMethod('card')"
+              >
+                💳 Thẻ ngân hàng
+              </button>
+              <button
+                class="method-btn"
+                id="methodTransfer"
+                onclick="selectMethod('transfer')"
+              >
+                🏦 Chuyển khoản
+              </button>
+            </div>
+
+            <!-- Form thẻ -->
+            <div id="formCard" class="method-form">
+              <div class="form-group">
+                <label class="form-label"
+                  >Số thẻ <span class="required">*</span></label
+                >
+                <input
+                  type="text"
+                  id="cardNumber"
+                  class="form-input"
+                  placeholder="1234 5678 9012 3456"
+                  maxlength="19"
+                  oninput="formatCardNumber(this)"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label"
+                  >Tên chủ thẻ <span class="required">*</span></label
+                >
+                <input
+                  type="text"
+                  id="cardName"
+                  class="form-input"
+                  placeholder="NGUYEN VAN A"
+                  style="text-transform: uppercase"
+                />
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label"
+                    >Ngày hết hạn <span class="required">*</span></label
+                  >
+                  <input
+                    type="text"
+                    id="cardExpiry"
+                    class="form-input"
+                    placeholder="MM/YY"
+                    maxlength="5"
+                    oninput="formatExpiry(this)"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label"
+                    >CVV <span class="required">*</span></label
+                  >
+                  <input
+                    type="text"
+                    id="cardCvv"
+                    class="form-input"
+                    placeholder="123"
+                    maxlength="3"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Form chuyển khoản -->
+            <div id="formTransfer" class="method-form" style="display: none">
+              <div class="bank-info">
+                <div class="bank-row">
+                  <span class="bank-label">Ngân hàng</span>
+                  <span class="bank-value">Vietcombank</span>
+                </div>
+                <div class="bank-row">
+                  <span class="bank-label">Số tài khoản</span>
+                  <span class="bank-value">
+                    1031360472
+                    <button class="btn-copy" onclick="copyText('1031360472')">
+                      Sao chép
+                    </button>
+                  </span>
+                </div>
+                <div class="bank-row">
+                  <span class="bank-label">Chủ tài khoản</span>
+                  <span class="bank-value">Đỗ Đại Học</span>
+                </div>
+                <div class="bank-row">
+                  <span class="bank-label">Nội dung CK</span>
+                  <span class="bank-value" id="transferContent">
+                    PREMIUM [email của bạn]
+                    <button class="btn-copy" onclick="copyTransferContent()">
+                      Sao chép
+                    </button>
+                  </span>
+                </div>
+              </div>
+              <div class="transfer-note">
+                <p>
+                  ⚠️ Sau khi chuyển khoản, vui lòng chờ 5-10 phút để hệ thống
+                  xác nhận.
+                </p>
+                <p>
+                  Hoặc bấm "Xác nhận đã thanh toán" để kích hoạt ngay (demo).
+                </p>
+              </div>
+            </div>
+
+            <!-- Nút thanh toán -->
+            <button class="btn-pay" id="btnPay" onclick="handlePayment()">
+              🔒 Thanh toán an toàn
+            </button>
+
+            <p class="pay-secure">🔐 Thông tin được mã hóa SSL 256-bit</p>
+          </div>
+
+          <!-- Cột phải: tóm tắt đơn hàng -->
+          <div class="order-summary">
+            <h2 class="summary-title">Tóm tắt đơn hàng</h2>
+
+            <div class="summary-plan" id="summaryPlan">
+              <!-- JS render -->
+            </div>
+
+            <div class="summary-features">
+              <p class="summary-feat-title">Bao gồm:</p>
+              <ul>
+                <li>✓ Đăng tin tuyển dụng không giới hạn</li>
+                <li>✓ Quản lý tin đăng dễ dàng</li>
+                <li>✓ Tin hiển thị nổi bật</li>
+                <li>✓ Hỗ trợ ưu tiên 24/7</li>
+              </ul>
+            </div>
+
+            <div class="summary-total" id="summaryTotal">
+              <!-- JS render -->
+            </div>
+
+            <div class="summary-guarantee">
+              <p>🛡 Đảm bảo hoàn tiền trong 7 ngày nếu không hài lòng</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ── Modal thành công ───────────────────────────────── -->
+    <div class="modal-overlay" id="successModal" style="display: none">
+      <div class="modal-box">
+        <div class="modal-icon">🎉</div>
+        <h2>Thanh toán thành công!</h2>
+        <p>Tài khoản của bạn đã được nâng cấp lên <strong>Premium</strong>.</p>
+        <p class="modal-expires" id="modalExpires"></p>
+        <button class="btn-plan btn-plan-primary" onclick="goToDashboard()">
+          Bắt đầu đăng tin ngay →
+        </button>
+      </div>
+    </div>
+
+    <!-- ── FOOTER ─────────────────────────────────────────── -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <p class="footer-logo">Job<span>Fit</span></p>
+            <p>Nền tảng tìm việc thông minh<br />được hỗ trợ bởi AI</p>
+          </div>
+          <div class="footer-links">
+            <p class="footer-heading">Dành cho ứng viên</p>
+            <a href="search.html">Tìm việc làm</a>
+            <a href="upload-cv.html">Upload CV</a>
+          </div>
+          <div class="footer-links">
+            <p class="footer-heading">Dành cho NTD</p>
+            <a href="pricing.html">Bảng giá</a>
+            <a href="post-job.html">Đăng tin tuyển dụng</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 JobFit – Đồ án môn học - FA STUDIO</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/payment.js"></script>
+  </body>
+</html>

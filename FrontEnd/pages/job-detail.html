@@ -1,12 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chi tiết công việc</title>
-    <link rel="icon" type="image/x-icon" href="../assets/image/favicon.ico" />
-    <link rel="stylesheet" href="../assets/css/job-detail.css" />
+    <title>Chi tiết việc làm – JobFit</title>
     <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/job-detail.css" />
   </head>
   <body>
     <!-- ── NAVBAR ─────────────────────────────────────────── -->
@@ -18,13 +17,53 @@
           <a href="search.html" class="active">Tìm việc</a>
           <a href="upload-cv.html">Upload CV</a>
         </div>
-        <div class="nav-auth" id="navAuth">
-          <!-- JS sẽ điền vào đây -->
-        </div>
+        <div class="nav-auth" id="navAuth"></div>
         <button class="nav-toggle" id="navToggle">&#9776;</button>
       </div>
     </nav>
-    <!--MAIn-->
+
+    <!-- ── MAIN ───────────────────────────────────────────── -->
+    <main class="job-detail-page">
+      <div class="container">
+        <!-- Nút quay lại -->
+        <a href="search.html" class="btn-back">← Quay lại tìm việc</a>
+
+        <!-- Loading state -->
+        <div id="loadingState" class="loading-state">
+          <div class="loading-spinner"></div>
+          <p>Đang tải thông tin việc làm...</p>
+        </div>
+
+        <!-- Error state -->
+        <div id="errorState" class="error-state" style="display: none">
+          <p class="error-icon">😕</p>
+          <h3>Không tìm thấy việc làm</h3>
+          <p>Việc làm này có thể đã bị xóa hoặc không tồn tại.</p>
+          <a href="search.html" class="btn-primary">Tìm việc khác</a>
+        </div>
+
+        <!-- Nội dung chính -->
+        <div id="jobContent" style="display: none">
+          <!-- Header: tên job + công ty -->
+          <div class="job-header" id="jobHeader"></div>
+
+          <!-- Meta bar: lương, địa điểm, loại hình -->
+          <div class="job-meta-bar" id="jobMetaBar"></div>
+
+          <!-- Body: 2 cột -->
+          <div class="job-body">
+            <!-- Cột trái -->
+            <div class="job-main">
+              <div class="job-section" id="jobDescription"></div>
+              <div class="job-section" id="jobSkills"></div>
+            </div>
+
+            <!-- Cột phải: sidebar liên hệ -->
+            <div class="job-sidebar" id="jobSidebar"></div>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <!-- ── FOOTER ─────────────────────────────────────────── -->
     <footer class="footer">
@@ -43,7 +82,8 @@
           <div class="footer-links">
             <p class="footer-heading">Dành cho NTD</p>
             <a href="auth.html">Đăng ký tài khoản</a>
-            <a href="auth.html">Đăng tin tuyển dụng</a>
+            <a href="pricing.html">Bảng giá</a>
+            <a href="post-job.html">Đăng tin tuyển dụng</a>
           </div>
         </div>
         <div class="footer-bottom">
@@ -52,9 +92,8 @@
       </div>
     </footer>
 
-    <!-- ── JavaScript ─────────────────────────────────────── -->
-    <script src="../assets/js/job-detail.js"></script>
     <script src="../assets/js/api.js"></script>
     <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/job-detail.js"></script>
   </body>
 </html>

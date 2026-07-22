@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bảng giá – JobFit</title>
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/pricing.css" />
+  </head>
+  <body>
+
+    <!-- ── NAVBAR ─────────────────────────────────────────── -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">Job<span>Fit</span></a>
+        <div class="nav-links" id="navLinks">
+          <a href="index.html">Trang chủ</a>
+          <a href="search.html">Tìm việc</a>
+          <a href="upload-cv.html">Upload CV</a>
+        </div>
+        <div class="nav-auth" id="navAuth"></div>
+        <button class="nav-toggle" id="navToggle">&#9776;</button>
+      </div>
+    </nav>
+
+    <!-- ── HERO ───────────────────────────────────────────── -->
+    <section class="pricing-hero">
+      <div class="container">
+        <p class="section-eyebrow">Dành cho nhà tuyển dụng</p>
+        <h1 class="pricing-title">Chọn gói phù hợp <br/>với doanh nghiệp bạn</h1>
+        <p class="pricing-sub">Tiếp cận hàng trăm ứng viên tiềm năng với chi phí hợp lý</p>
+
+        <!-- Toggle tháng / năm -->
+        <div class="billing-toggle">
+          <span id="labelMonthly" class="billing-label active">Theo tháng</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="billingToggle" />
+            <span class="toggle-slider"></span>
+          </label>
+          <span id="labelYearly" class="billing-label">
+            Theo năm
+            <span class="save-badge">Tiết kiệm 20%</span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PRICING CARDS ──────────────────────────────────── -->
+    <section class="pricing-section">
+      <div class="container">
+        <div class="pricing-grid">
+
+          <!-- Gói Free -->
+          <div class="pricing-card">
+            <div class="plan-header">
+              <p class="plan-icon">🆓</p>
+              <h2 class="plan-name">Miễn phí</h2>
+              <p class="plan-desc">Dành cho cá nhân mới bắt đầu</p>
+            </div>
+            <div class="plan-price">
+              <span class="price-amount">0đ</span>
+              <span class="price-period">/ mãi mãi</span>
+            </div>
+            <ul class="plan-features">
+              <li class="feature-item">
+                <span class="feature-check">✓</span>
+                Xem danh sách ứng viên
+              </li>
+              <li class="feature-item">
+                <span class="feature-check">✓</span>
+                Tạo tài khoản nhà tuyển dụng
+              </li>
+              <li class="feature-item feature-no">
+                <span class="feature-x">✗</span>
+                Đăng tin tuyển dụng
+              </li>
+              <li class="feature-item feature-no">
+                <span class="feature-x">✗</span>
+                Quản lý tin đăng
+              </li>
+              <li class="feature-item feature-no">
+                <span class="feature-x">✗</span>
+                Hỗ trợ ưu tiên
+              </li>
+            </ul>
+            <button class="btn-plan btn-plan-outline" disabled>Gói hiện tại</button>
+          </div>
+
+          <!-- Gói Premium (nổi bật) -->
+          <div class="pricing-card card-featured">
+            <div class="featured-badge">⭐ Phổ biến nhất</div>
+            <div class="plan-header">
+              <p class="plan-icon">💎</p>
+              <h2 class="plan-name">Premium</h2>
+              <p class="plan-desc">Dành cho doanh nghiệp đang phát triển</p>
+            </div>
+            <div class="plan-price">
+              <span class="price-amount" id="premiumPrice">499.000đ</span>
+              <span class="price-period" id="premiumPeriod">/ tháng</span>
+            </div>
+            <p class="price-note" id="premiumNote"></p>
+            <ul class="plan-features">
+              <li class="feature-item">
+                <span class="feature-check">✓</span>
+                Tất cả tính năng Free
+              </li>
+              <li class="feature-item">
+                <span class="feature-check">✓</span>
+                Đăng tin tuyển dụng không giới hạn
+              </li>
+              <li class="feature-item">
+                <span class="feature-check">✓</span>
+                Quản lý tin đăng dễ dàng
+              </li>
+              <li class="feature-item">
+                <span class="feature-check">✓</span>
+                Tin hiển thị nổi bật hơn
+              </li>
+              <li class="feature-item">
+                <span class="feature-check">✓</span>
+                Hỗ trợ ưu tiên 24/7
+              </li>
+            </ul>
+            <button
+              class="btn-plan btn-plan-primary"
+              id="btnBuyPremium"
+              onclick="handleBuyPlan('monthly')"
+            >
+              Mua gói Premium
+            </button>
+          </div>
+
+          <!-- Gói Enterprise -->
+          <div class="pricing-card">
+            <div class="plan-header">
+              <p class="plan-icon">🚀</p>
+              <h2 class="plan-name">Enterprise</h2>
+              <p class="plan-desc">Dành cho tập đoàn lớn</p>
+            </div>
+            <div class="plan-price">
+              <span class="price-amount">Liên hệ</span>
+            </div>
+            <ul class="plan-features">
+              <li class="feature-item">
+                <span class="feature-check">✓</span>
+                Tất cả tính năng Premium
+              </li>
+              <li class="feature-item">
+                <span class="feature-check">✓</span>
+                Số lượng tài khoản không giới hạn
+              </li>
+              <li class="feature-item">
+                <span class="feature-check">✓</span>
+                Báo cáo & thống kê nâng cao
+              </li>
+              <li class="feature-item">
+                <span class="feature-check">✓</span>
+                Tích hợp API riêng
+              </li>
+              <li class="feature-item">
+                <span class="feature-check">✓</span>
+                Quản lý tài khoản chuyên biệt
+              </li>
+            </ul>
+            <a href="mailto:contact@jobfit.vn" class="btn-plan btn-plan-outline">
+              Liên hệ chúng tôi
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FAQ ────────────────────────────────────────────── -->
+    <section class="section faq-section">
+      <div class="container">
+        <div class="section-header centered">
+          <div>
+            <p class="section-eyebrow">Giải đáp thắc mắc</p>
+            <h2 class="section-title">Câu hỏi thường gặp</h2>
+          </div>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              Tôi có thể hủy gói bất cứ lúc nào không?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Có, bạn có thể hủy gói bất cứ lúc nào. Gói hiện tại vẫn có hiệu lực đến hết thời hạn đã thanh toán.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              Phương thức thanh toán nào được chấp nhận?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Chúng tôi chấp nhận thanh toán qua thẻ ATM, thẻ tín dụng/ghi nợ (Visa, Mastercard) và chuyển khoản ngân hàng.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              Gói Premium có giới hạn số tin đăng không?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Không! Gói Premium cho phép đăng tin tuyển dụng không giới hạn trong suốt thời gian sử dụng.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              Tôi cần làm gì sau khi thanh toán?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Sau khi thanh toán thành công, tài khoản của bạn sẽ được nâng cấp ngay lập tức. Bạn có thể bắt đầu đăng tin tuyển dụng ngay.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FOOTER ─────────────────────────────────────────── -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <p class="footer-logo">Job<span>Fit</span></p>
+            <p>Nền tảng tìm việc thông minh<br />được hỗ trợ bởi AI</p>
+          </div>
+          <div class="footer-links">
+            <p class="footer-heading">Dành cho ứng viên</p>
+            <a href="search.html">Tìm việc làm</a>
+            <a href="upload-cv.html">Upload CV</a>
+            <a href="profile.html">Hồ sơ cá nhân</a>
+          </div>
+          <div class="footer-links">
+            <p class="footer-heading">Dành cho NTD</p>
+            <a href="auth.html">Đăng ký tài khoản</a>
+            <a href="pricing.html">Bảng giá</a>
+            <a href="post-job.html">Đăng tin tuyển dụng</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 JobFit – Đồ án môn học - FA STUDIO</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/pricing.js"></script>
+  </body>
+</html>

@@ -97,3 +97,47 @@ const login = async (req, res) => {
 };
 
 module.exports = { register, login };
+
+// Lấy thông tin user hiện tại (kèm is_premium)
+const getMe = async (req, res) => {
+  try {
+    const [users] = await db.query(
+      "SELECT id, name, email, role, is_premium, premium_expires_at FROM users WHERE id = ?",
+      [req.user.id],
+    );
+    if (users.length === 0)
+      return res.status(404).json({ message: "User không tồn tại" });
+    res.json(users[0]);
+  } catch (error) {
+    res.status(500).json({ message: "Lỗi server" });
+  }
+};
+
+// Nâng cấp premium (giả lập thanh toán)
+const upgradePremium = async (req, res) => {
+  try {
+    const { plan } = req.body; // 'monthly' hoặc 'yearly'
+
+    // Tính ngày hết hạn
+    const expires = new Date();
+    if (plan === "yearly") {
+      expires.setFullYear(expires.getFullYear() + 1);
+    } else {
+      expires.setMonth(expires.getMonth() + 1);
+    }
+
+    await db.query(
+      "UPDATE users SET is_premium = TRUE, premium_expires_at = ? WHERE id = ?",
+      [expires, req.user.id],
+    );
+
+    res.json({
+      message: "Nâng cấp thành công!",
+      premium_expires_at: expires,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Lỗi server" });
+  }
+};
+
+module.exports = { register, login, getMe, upgradePremium };

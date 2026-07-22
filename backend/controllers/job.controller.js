@@ -145,4 +145,66 @@ const deleteJob = async (req, res) => {
   }
 };
 
-module.exports = { getAllJobs, getJobById, createJob, deleteJob };
+const toggleJobStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    if (!["open", "closed"].includes(status)) {
+      return res.status(400).json({ message: "Trạng thái không hợp lệ" });
+    }
+
+    // Kiểm tra job thuộc về công ty của user
+    const [jobs] = await db.query(
+      `
+      SELECT jobs.id FROM jobs
+      JOIN companies ON jobs.company_id = companies.id
+      WHERE jobs.id = ? AND companies.user_id = ?
+    `,
+      [id, req.user.id],
+    );
+
+    if (jobs.length === 0) {
+      return res
+        .status(403)
+        .json({ message: "Bạn không có quyền sửa tin này" });
+    }
+
+    await db.query("UPDATE jobs SET status = ? WHERE id = ?", [status, id]);
+    res.json({
+      message: `Đã ${status === "open" ? "mở lại" : "đóng"} tin thành công`,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Lỗi server" });
+  }
+};
+
+const getMyJobs = async (req, res) => {
+  try {
+    const [jobs] = await db.query(
+      `
+      SELECT jobs.*, companies.name AS company_name,
+             companies.contact_email, companies.contact_phone
+      FROM jobs
+      JOIN companies ON jobs.company_id = companies.id
+      WHERE companies.user_id = ?
+      ORDER BY jobs.created_at DESC
+    `,
+      [req.user.id],
+    );
+
+    res.json(jobs);
+  } catch (error) {
+    console.error("Lỗi getMyJobs:", error);
+    res.status(500).json({ message: "Lỗi server" });
+  }
+};
+
+module.exports = {
+  getAllJobs,
+  getJobById,
+  createJob,
+  deleteJob,
+  toggleJobStatus,
+  getMyJobs,
+};
