@@ -58,6 +58,10 @@ JobFit/
     ├── job-detail.html            # Chi tiết việc làm
     ├── upload-cv.html             # Upload CV
     ├── profile.html               # Hồ sơ cá nhân
+    ├── employer-dashboard.html    # dashboard nhà tuyển dụng
+    ├── payment.html
+    ├── post-job.html
+    ├── pricing.html
     └── result.html                # Kết quả phân tích AI
 ```
 

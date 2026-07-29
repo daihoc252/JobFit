@@ -6,9 +6,9 @@
     <title>Dashboard Nhà tuyển dụng – JobFit</title>
     <link rel="stylesheet" href="../assets/css/main.css" />
     <link rel="stylesheet" href="../assets/css/employer-dashboard.css" />
+    <link rel="icon" type="image/x-icon" href="../assets/image/favicon.ico" />
   </head>
   <body>
-
     <nav class="navbar">
       <div class="nav-container">
         <a href="index.html" class="nav-logo">Job<span>Fit</span></a>
@@ -24,7 +24,6 @@
 
     <main class="dashboard-page">
       <div class="container">
-
         <div class="dashboard-header">
           <div>
             <h1 class="dashboard-title" id="dashTitle">Dashboard</h1>
@@ -32,7 +31,9 @@
           </div>
           <div class="dashboard-actions">
             <div class="premium-status" id="premiumStatus"></div>
-            <a href="post-job.html" class="btn-primary" id="btnPostJob">+ Đăng tin mới</a>
+            <a href="post-job.html" class="btn-primary" id="btnPostJob"
+              >+ Đăng tin mới</a
+            >
           </div>
         </div>
 
@@ -68,10 +69,18 @@
         </div>
 
         <div class="dash-tabs">
-          <button class="dash-tab active" onclick="switchTab('all', this)">Tất cả tin</button>
-          <button class="dash-tab" onclick="switchTab('open', this)">Đang tuyển</button>
-          <button class="dash-tab" onclick="switchTab('closed', this)">Đã đóng</button>
-          <button class="dash-tab" onclick="switchTab('profile', this)">🏢 Hồ sơ công ty</button>
+          <button class="dash-tab active" onclick="switchTab('all', this)">
+            Tất cả tin
+          </button>
+          <button class="dash-tab" onclick="switchTab('open', this)">
+            Đang tuyển
+          </button>
+          <button class="dash-tab" onclick="switchTab('closed', this)">
+            Đã đóng
+          </button>
+          <button class="dash-tab" onclick="switchTab('profile', this)">
+            🏢 Hồ sơ công ty
+          </button>
         </div>
 
         <div id="loadingJobs" class="loading-state">
@@ -79,21 +88,24 @@
           <p>Đang tải danh sách tin...</p>
         </div>
 
-        <div id="jobList" style="display:none"></div>
+        <div id="jobList" style="display: none"></div>
 
-        <div id="emptyState" style="display:none" class="empty-state">
+        <div id="emptyState" style="display: none" class="empty-state">
           <div class="empty-icon">📭</div>
           <h3>Chưa có tin tuyển dụng</h3>
           <p>Bắt đầu đăng tin để tìm kiếm ứng viên phù hợp</p>
-          <a href="post-job.html" class="btn-primary" style="margin-top:16px; display:inline-block">
+          <a
+            href="post-job.html"
+            class="btn-primary"
+            style="margin-top: 16px; display: inline-block"
+          >
             + Đăng tin đầu tiên
           </a>
         </div>
 
         <!-- Profile công ty -->
-        <div id="companyProfile" style="display:none">
+        <div id="companyProfile" style="display: none">
           <div class="profile-card">
-
             <div class="profile-card-header">
               <h2>🏢 Thông tin công ty</h2>
               <span id="companySaveStatus"></span>
@@ -102,59 +114,109 @@
             <div class="logo-upload">
               <div id="logoPreview" class="logo-preview">🏢</div>
               <div>
-                <input type="file" id="logoInput" accept="image/*" style="display:none" onchange="previewLogo(this)"/>
+                <input
+                  type="file"
+                  id="logoInput"
+                  accept="image/*"
+                  style="display: none"
+                  onchange="previewLogo(this)"
+                />
                 <label for="logoInput" class="btn-logo">📷 Chọn logo</label>
-                <p style="font-size:12px; color:var(--text-light); margin-top:6px">PNG, JPG · Tối đa 2MB</p>
+                <p
+                  style="
+                    font-size: 12px;
+                    color: var(--text-light);
+                    margin-top: 6px;
+                  "
+                >
+                  PNG, JPG · Tối đa 2MB
+                </p>
               </div>
             </div>
 
             <div class="profile-grid">
-              <div style="grid-column:1/-1">
-                <label class="profile-label">Tên công ty <span style="color:#ef4444">*</span></label>
-                <input type="text" id="companyName" class="form-input" placeholder="VD: FPT Software" />
+              <div style="grid-column: 1/-1">
+                <label class="profile-label"
+                  >Tên công ty <span style="color: #ef4444">*</span></label
+                >
+                <input
+                  type="text"
+                  id="companyName"
+                  class="form-input"
+                  placeholder="VD: FPT Software"
+                />
               </div>
               <div>
-                <label class="profile-label">Email liên hệ <span style="color:#ef4444">*</span></label>
-                <input type="email" id="companyEmail" class="form-input" placeholder="hr@company.com" />
+                <label class="profile-label"
+                  >Email liên hệ <span style="color: #ef4444">*</span></label
+                >
+                <input
+                  type="email"
+                  id="companyEmail"
+                  class="form-input"
+                  placeholder="hr@company.com"
+                />
               </div>
               <div>
                 <label class="profile-label">Số điện thoại</label>
-                <input type="text" id="companyPhone" class="form-input" placeholder="024 7300 7300" />
+                <input
+                  type="text"
+                  id="companyPhone"
+                  class="form-input"
+                  placeholder="024 7300 7300"
+                />
               </div>
-              <div style="grid-column:1/-1">
+              <div style="grid-column: 1/-1">
                 <label class="profile-label">Địa chỉ</label>
-                <input type="text" id="companyAddress" class="form-input" placeholder="Tòa nhà ABC, Đường XYZ, TP. Hồ Chí Minh" />
+                <input
+                  type="text"
+                  id="companyAddress"
+                  class="form-input"
+                  placeholder="Tòa nhà ABC, Đường XYZ, TP. Hồ Chí Minh"
+                />
               </div>
-              <div style="grid-column:1/-1">
+              <div style="grid-column: 1/-1">
                 <label class="profile-label">Website</label>
-                <input type="text" id="companyWebsite" class="form-input" placeholder="https://company.com" />
+                <input
+                  type="text"
+                  id="companyWebsite"
+                  class="form-input"
+                  placeholder="https://company.com"
+                />
               </div>
-              <div style="grid-column:1/-1">
+              <div style="grid-column: 1/-1">
                 <label class="profile-label">Mô tả công ty</label>
-                <textarea id="companyDesc" class="form-textarea" rows="4"
-                  placeholder="Giới thiệu về công ty, văn hóa, lĩnh vực hoạt động..."></textarea>
+                <textarea
+                  id="companyDesc"
+                  class="form-textarea"
+                  rows="4"
+                  placeholder="Giới thiệu về công ty, văn hóa, lĩnh vực hoạt động..."
+                ></textarea>
               </div>
             </div>
 
             <button onclick="saveCompanyProfile()" class="btn-save-profile">
               💾 Lưu thông tin công ty
             </button>
-
           </div>
         </div>
-
       </div>
     </main>
 
     <!-- Modal xóa -->
-    <div class="modal-overlay" id="deleteModal" style="display:none">
+    <div class="modal-overlay" id="deleteModal" style="display: none">
       <div class="modal-box">
         <div class="modal-icon">🗑</div>
         <h2>Xác nhận xóa tin</h2>
-        <p>Bạn có chắc muốn xóa tin tuyển dụng này?<br/>Hành động này không thể hoàn tác.</p>
+        <p>
+          Bạn có chắc muốn xóa tin tuyển dụng này?<br />Hành động này không thể
+          hoàn tác.
+        </p>
         <div class="modal-actions">
           <button class="btn-cancel" onclick="closeDeleteModal()">Hủy</button>
-          <button class="btn-confirm-delete" id="btnConfirmDelete">Xóa tin</button>
+          <button class="btn-confirm-delete" id="btnConfirmDelete">
+            Xóa tin
+          </button>
         </div>
       </div>
     </div>
