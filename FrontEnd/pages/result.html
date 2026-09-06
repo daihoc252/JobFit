@@ -1,12 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kết quả AI</title>
+    <title>Kết quả AI – JobFit</title>
     <link rel="icon" type="image/x-icon" href="../assets/image/favicon.ico" />
     <link rel="stylesheet" href="../assets/css/main.css" />
     <link rel="stylesheet" href="../assets/css/result.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
   </head>
   <body>
     <!-- ── NAVBAR ─────────────────────────────────────────── -->
@@ -15,25 +19,41 @@
         <a href="index.html" class="nav-logo">Job<span>Fit</span></a>
         <div class="nav-links" id="navLinks">
           <a href="index.html">Trang chủ</a>
-          <a href="search.html" class="active">Tìm việc</a>
-          <a href="upload-cv.html">Upload CV</a>
+          <a href="search.html">Tìm việc</a>
+          <a href="upload-cv.html" class="active">Upload CV</a>
         </div>
         <div class="nav-auth" id="navAuth">
           <!-- JS sẽ điền vào đây -->
         </div>
-        <button class="nav-toggle" id="navToggle">&#9776;</button>
+        <button class="nav-toggle" id="navToggle"><i class="bi bi-list"></i></button>
       </div>
     </nav>
 
     <main class="result-pages">
       <div class="container">
-        <div class="result-header" id="resultHeader"></div>
-      </div>
-      <div class="result-sections" id="resultSections"></div>
+        <!-- Loading -->
+        <div id="resultLoading" class="loading-state">
+          <div class="loading-spinner"></div>
+          <p>Đang tải kết quả phân tích...</p>
+        </div>
 
-      <div class="result-actions">
-        <a href="upload-cv.html" class="btn-ghost">Upload CV khác</a>
-        <a href="search.html" class="btn-primary">🔍 Tìm việc phù hợp</a>
+        <!-- Lỗi -->
+        <div id="resultError" class="result-error" style="display: none">
+          <p class="error-icon"><i class="bi bi-emoji-frown"></i></p>
+          <h3>Không tìm thấy kết quả phân tích</h3>
+          <p>CV này có thể chưa phân tích xong hoặc đã bị xóa.</p>
+          <a href="upload-cv.html" class="btn-primary">Tải CV khác</a>
+        </div>
+
+        <!-- Nội dung kết quả -->
+        <div id="resultContent" style="display: none">
+          <div class="result-header" id="resultHeader"></div>
+          <div class="result-sections" id="resultSections"></div>
+          <div class="result-actions">
+            <a href="upload-cv.html" class="btn-ghost">Upload CV khác</a>
+            <a href="search.html" class="btn-primary"><i class="bi bi-search"></i> Tìm việc phù hợp</a>
+          </div>
+        </div>
       </div>
     </main>
 

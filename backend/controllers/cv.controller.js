@@ -25,84 +25,90 @@ const extractTextFromPDF = (filePath) => {
   });
 };
 
+// ── KHUNG TIÊU CHÍ ĐÁNH GIÁ KIỂU ATS (dùng chung cho prompt + validate) ──
+// AI chỉ cần chấm từng criteria (điểm lá) — điểm category/tổng được tính lại
+// ở code (không tin vào cộng tổng của AI) để đảm bảo luôn khớp con số.
+const SCORE_CATEGORIES = [
+  {
+    key: "core_foundation",
+    name: "Nền tảng cơ bản",
+    description: "Định dạng, thông tin & chất lượng nội dung",
+    criteria: [
+      { name: "Định dạng & cấu trúc", max_score: 10 },
+      { name: "Khả năng đọc bởi ATS", max_score: 10 },
+      { name: "Thông tin liên hệ & tóm tắt", max_score: 10 },
+      { name: "Chất lượng hành văn & từ khóa", max_score: 10 },
+    ],
+  },
+  {
+    key: "specialized_assessment",
+    name: "Đánh giá chuyên sâu",
+    description: "Kinh nghiệm & chiều sâu chuyên môn",
+    criteria: [
+      { name: "Ấn tượng tổng thể", max_score: 8 },
+      { name: "Minh chứng kỹ năng/kỹ thuật", max_score: 8 },
+      { name: "Dự án / Portfolio", max_score: 8 },
+      { name: "Chứng chỉ", max_score: 8 },
+      { name: "Am hiểu ngành nghề", max_score: 8 },
+    ],
+  },
+  {
+    key: "bonus_factors",
+    name: "Điểm cộng khác biệt",
+    description: "Các yếu tố tạo điểm nhấn",
+    criteria: [
+      { name: "Tinh thần học hỏi & phát triển", max_score: 10 },
+      { name: "Yếu tố đặc thù ngành", max_score: 10 },
+    ],
+  },
+];
+
+// SCORE_CATEGORIES không đổi khi chạy → tính 1 lần, dùng lại cho mọi request
+const SCORE_SCHEMA_FOR_PROMPT = JSON.stringify(
+  SCORE_CATEGORIES.map((cat) => ({
+    key: cat.key,
+    name: cat.name,
+    description: cat.description,
+    criteria: cat.criteria.map((c) => ({
+      name: c.name,
+      max_score: c.max_score,
+      score: `<0-${c.max_score}>`,
+      comment: "<nhận xét ngắn, thẳng thắn>",
+      suggestion: "<gợi ý sửa cụ thể, hành động được ngay, hoặc null nếu đã tốt>",
+    })),
+  })),
+  null,
+  2,
+);
+
 // ── HÀM GỌI GROQ PHÂN TÍCH CV ────────────────────────────
-const analyzeCVWithAI = async (cvText) => {
+// response_format ép model trả JSON đúng cú pháp; vẫn thử lại 1 lần vì
+// model có thể trả JSON hợp lệ nhưng lệch cấu trúc schema mong muốn.
+const requestCVAnalysis = async (cvText) => {
   const completion = await groq.chat.completions.create({
-    model: "llama-3.3-70b-versatile",
+    model: "openai/gpt-oss-120b",
+    response_format: { type: "json_object" },
     messages: [
       {
         role: "user",
-        content: `Bạn là chuyên gia đánh giá CV tuyển dụng hàng đầu. Hãy phân tích CV sau và trả về JSON với cấu trúc bên dưới.
+        content: `Bạn là chuyên gia đánh giá CV theo chuẩn ATS (Applicant Tracking System) hàng đầu. Phân tích CV sau và trả về JSON THUẦN TÚY (không markdown, không giải thích gì thêm ngoài JSON).
 
-Yêu cầu đánh giá:
-- Chấm điểm từng khu vực trên thang 10
-- Chỉ ra cụ thể điểm chưa tốt
-- Đưa ra gợi ý chỉnh sửa giúp CV gây ấn tượng với nhà tuyển dụng
-- Nếu khu vực nào không có trong CV thì điểm = 0 và ghi rõ "Chưa có phần này"
+Nguyên tắc:
+- Chấm từng "criteria" đúng theo thang điểm "max_score" đã cho sẵn (không tự đổi thang điểm, không thêm/bớt criteria)
+- Thẳng thắn, không chấm dễ dãi — nếu CV thiếu hẳn nội dung cho 1 tiêu chí thì cho điểm thấp (0-2) và nêu rõ lý do trong "comment"
+- "suggestion": gợi ý sửa cụ thể, hành động được ngay; để null nếu tiêu chí đã tốt (điểm >= 80% max_score)
+- "ai_summary": đúng 1 câu, thẳng thắn, nêu đúng vấn đề LỚN NHẤT của CV, giọng văn như chuyên gia tuyển dụng
 
-Trả về JSON với cấu trúc sau (chỉ JSON thuần túy, không giải thích thêm):
+Trả về đúng cấu trúc JSON sau (giữ nguyên toàn bộ key, tên category/criteria, chỉ điền giá trị vào "score" và "comment"/"suggestion"):
 {
-  "overall_score": <số từ 1-10>,
-  "overall_comment": "<nhận xét tổng quan 1-2 câu>",
+  "ai_summary": "<...>",
+  "candidate_level": "<một trong: Sinh viên/Mới ra trường | 1-3 năm kinh nghiệm | 3-5 năm kinh nghiệm | Trên 5 năm kinh nghiệm>",
+  "target_category": "<lĩnh vực/vị trí CV đang hướng tới, suy luận từ nội dung CV, VD: Frontend Developer>",
   "name": "<tên ứng viên>",
   "email": "<email nếu có>",
   "phone": "<số điện thoại nếu có>",
-  "sections": [
-    {
-      "name": "Thông tin cá nhân",
-      "score": <0-10>,
-      "status": "<good|warning|bad>",
-      "comment": "<nhận xét ngắn>",
-      "suggestion": "<gợi ý cải thiện cụ thể hoặc null nếu tốt rồi>",
-      "example": "<ví dụ câu/đoạn viết lại tốt hơn hoặc null>"
-    },
-    {
-      "name": "Mục tiêu nghề nghiệp",
-      "score": <0-10>,
-      "status": "<good|warning|bad>",
-      "comment": "<nhận xét ngắn>",
-      "suggestion": "<gợi ý cải thiện cụ thể hoặc null>",
-      "example": "<ví dụ hoặc null>"
-    },
-    {
-      "name": "Kinh nghiệm làm việc",
-      "score": <0-10>,
-      "status": "<good|warning|bad>",
-      "comment": "<nhận xét ngắn>",
-      "suggestion": "<gợi ý cải thiện cụ thể hoặc null>",
-      "example": "<ví dụ hoặc null>"
-    },
-    {
-      "name": "Kỹ năng",
-      "score": <0-10>,
-      "status": "<good|warning|bad>",
-      "comment": "<nhận xét ngắn>",
-      "suggestion": "<gợi ý cải thiện cụ thể hoặc null>",
-      "example": "<ví dụ hoặc null>"
-    },
-    {
-      "name": "Học vấn",
-      "score": <0-10>,
-      "status": "<good|warning|bad>",
-      "comment": "<nhận xét ngắn>",
-      "suggestion": "<gợi ý cải thiện cụ thể hoặc null>",
-      "example": "<ví dụ hoặc null>"
-    },
-    {
-      "name": "Thành tích & Dự án",
-      "score": <0-10>,
-      "status": "<good|warning|bad>",
-      "comment": "<nhận xét ngắn>",
-      "suggestion": "<gợi ý cải thiện cụ thể hoặc null>",
-      "example": "<ví dụ hoặc null>"
-    }
-  ]
+  "categories": ${SCORE_SCHEMA_FOR_PROMPT}
 }
-
-Quy tắc status:
-- good: điểm >= 8
-- warning: điểm 5-7
-- bad: điểm < 5
 
 CV cần phân tích:
 ${cvText}`,
@@ -115,8 +121,87 @@ ${cvText}`,
   const cleaned = text.replace(/```json|```/g, "").trim();
   return JSON.parse(cleaned);
 };
+
+const analyzeCVWithAI = async (cvText) => {
+  let parsed;
+  try {
+    parsed = await requestCVAnalysis(cvText);
+  } catch (error) {
+    console.error("Lỗi phân tích CV lần 1, thử lại:", error.message);
+    parsed = await requestCVAnalysis(cvText);
+  }
+
+  return normalizeScoreResult(parsed);
+};
+
+// ── Tính lại điểm category/tổng từ điểm criteria (không tin vào AI cộng) ──
+const normalizeScoreResult = (parsed) => {
+  const categoriesByKey = new Map(
+    (parsed.categories || []).map((c) => [c.key, c]),
+  );
+
+  let overallScore = 0;
+  let overallMax = 0;
+
+  const categories = SCORE_CATEGORIES.map((catDef) => {
+    const aiCat = categoriesByKey.get(catDef.key) || {};
+    const aiCriteriaByName = new Map(
+      (aiCat.criteria || []).map((c) => [c.name, c]),
+    );
+
+    let catScore = 0;
+    let catMax = 0;
+
+    const criteria = catDef.criteria.map((criDef) => {
+      const aiCri = aiCriteriaByName.get(criDef.name) || {};
+      const score = clampScore(aiCri.score, criDef.max_score);
+      catScore += score;
+      catMax += criDef.max_score;
+
+      return {
+        name: criDef.name,
+        max_score: criDef.max_score,
+        score,
+        comment: aiCri.comment || "Chưa có nhận xét",
+        suggestion: aiCri.suggestion || null,
+      };
+    });
+
+    overallScore += catScore;
+    overallMax += catMax;
+
+    return {
+      key: catDef.key,
+      name: catDef.name,
+      description: catDef.description,
+      score: catScore,
+      max_score: catMax,
+      criteria,
+    };
+  });
+
+  return {
+    version: 2,
+    overall_score: overallScore,
+    overall_max_score: overallMax,
+    ai_summary: parsed.ai_summary || "",
+    candidate_level: parsed.candidate_level || "",
+    target_category: parsed.target_category || "",
+    name: parsed.name || "",
+    email: parsed.email || "",
+    phone: parsed.phone || "",
+    categories,
+  };
+};
+
+const clampScore = (value, max) => {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return 0;
+  return Math.max(0, Math.min(max, Math.round(n)));
+};
 // ── UPLOAD CV ──────────────────────────────────────────────
 const uploadCV = async (req, res) => {
+  let cvId;
   try {
     if (!req.file) {
       return res.status(400).json({ message: "Vui lòng chọn file CV" });
@@ -132,7 +217,7 @@ const uploadCV = async (req, res) => {
       [req.user.id, fileName, filePath],
     );
 
-    const cvId = result.insertId;
+    cvId = result.insertId;
 
     // Đọc nội dung PDF
     const cvText = await extractTextFromPDF(filePath);
@@ -161,6 +246,16 @@ const uploadCV = async (req, res) => {
     });
   } catch (error) {
     console.error("Lỗi upload CV:", error);
+
+    // Đánh dấu CV lỗi thay vì để kẹt mãi ở trạng thái "pending"
+    if (cvId) {
+      try {
+        await db.query("UPDATE cvs SET status = ? WHERE id = ?", ["error", cvId]);
+      } catch (updateErr) {
+        console.error("Lỗi cập nhật trạng thái error cho CV:", updateErr);
+      }
+    }
+
     res.status(500).json({ message: "Lỗi server khi xử lý CV" });
   }
 };

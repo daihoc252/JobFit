@@ -18,7 +18,7 @@ async function loadFeaturedJobs() {
     if (!res.ok || !res.data.length) {
       grid.innerHTML = `
         <div class="empty-state" style="grid-column:1/-1">
-          <div class="empty-icon">📭</div>
+          <div class="empty-icon"><i class="bi bi-inbox"></i></div>
           <h3>Chưa có việc làm nào</h3>
           <p>Hãy quay lại sau nhé!</p>
         </div>`;
@@ -35,7 +35,7 @@ async function loadFeaturedJobs() {
   } catch (err) {
     grid.innerHTML = `
       <div class="empty-state" style="grid-column:1/-1">
-        <div class="empty-icon">⚠️</div>
+        <div class="empty-icon"><i class="bi bi-exclamation-triangle-fill"></i></div>
         <h3>Không thể tải dữ liệu</h3>
         <p>Kiểm tra server có đang chạy không</p>
       </div>`;
@@ -51,7 +51,7 @@ function renderJobCard(job) {
   return `
     <div class="job-card" onclick="goToJob(${job.id})">
       <div class="job-card-top">
-        <div class="job-logo">🏢</div>
+        <div class="job-logo"><i class="bi bi-building"></i></div>
         <div>
           <p class="job-title">${job.title}</p>
           <p class="job-company">${job.company_name || 'Công ty'}</p>
@@ -59,7 +59,7 @@ function renderJobCard(job) {
       </div>
 
       <div class="job-meta">
-        <span class="job-meta-item">📍 ${job.location || 'Không xác định'}</span>
+        <span class="job-meta-item"><i class="bi bi-geo-alt-fill"></i> ${job.location || 'Không xác định'}</span>
         <span class="badge ${jobTypeBadge(job.job_type)}">${jobTypeLabel(job.job_type)}</span>
       </div>
 

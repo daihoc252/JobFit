@@ -6,6 +6,10 @@
     <title>Đăng tin tuyển dụng – JobFit</title>
     <link rel="stylesheet" href="../assets/css/main.css" />
     <link rel="stylesheet" href="../assets/css/post-job.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
     <link rel="icon" type="image/x-icon" href="../assets/image/favicon.ico" />
   </head>
   <body>
@@ -19,7 +23,7 @@
           <a href="upload-cv.html">Upload CV</a>
         </div>
         <div class="nav-auth" id="navAuth"></div>
-        <button class="nav-toggle" id="navToggle">&#9776;</button>
+        <button class="nav-toggle" id="navToggle"><i class="bi bi-list"></i></button>
       </div>
     </nav>
 
@@ -35,7 +39,7 @@
 
         <!-- Chặn nếu chưa premium -->
         <div id="premiumGate" style="display: none" class="premium-gate">
-          <div class="gate-icon">🔒</div>
+          <div class="gate-icon"><i class="bi bi-lock-fill"></i></div>
           <h2>Tính năng Premium</h2>
           <p>Bạn cần nâng cấp tài khoản Premium để đăng tin tuyển dụng</p>
           <a href="pricing.html" class="btn-primary">Xem bảng giá</a>
@@ -45,12 +49,12 @@
         <div id="postJobForm">
           <div class="form-header">
             <div>
-              <h1 class="form-title">📝 Đăng tin tuyển dụng</h1>
+              <h1 class="form-title"><i class="bi bi-file-earmark-plus-fill"></i> Đăng tin tuyển dụng</h1>
               <p class="form-sub">
                 Điền đầy đủ thông tin để thu hút ứng viên phù hợp
               </p>
             </div>
-            <a href="employer-dashboard.html" class="btn-ghost">← Quay lại</a>
+            <a href="employer-dashboard.html" class="btn-ghost"><i class="bi bi-arrow-left"></i> Quay lại</a>
           </div>
 
           <div class="form-grid">
@@ -58,7 +62,7 @@
             <div class="form-main">
               <!-- Thông tin công ty -->
               <div class="form-card" id="companyCard">
-                <h2 class="card-title">🏢 Thông tin công ty</h2>
+                <h2 class="card-title"><i class="bi bi-building"></i> Thông tin công ty</h2>
                 <div id="companyInfo">
                   <!-- JS render vào đây -->
                 </div>
@@ -276,9 +280,9 @@
             <div class="form-sidebar">
               <!-- Preview tin đăng -->
               <div class="preview-card">
-                <h3 class="preview-title">👁 Xem trước</h3>
+                <h3 class="preview-title"><i class="bi bi-eye-fill"></i> Xem trước</h3>
                 <div class="preview-box" id="previewBox">
-                  <div class="preview-logo">🏢</div>
+                  <div class="preview-logo"><i class="bi bi-building"></i></div>
                   <p class="preview-job-title" id="previewTitle">
                     Tên vị trí...
                   </p>
@@ -286,9 +290,9 @@
                     Tên công ty của bạn
                   </p>
                   <div class="preview-meta" id="previewMeta">
-                    <span>📍 Địa điểm</span>
-                    <span>💼 Loại hình</span>
-                    <span>💰 Lương</span>
+                    <span><i class="bi bi-geo-alt-fill"></i> Địa điểm</span>
+                    <span><i class="bi bi-briefcase-fill"></i> Loại hình</span>
+                    <span><i class="bi bi-cash-stack"></i> Lương</span>
                   </div>
                   <div class="preview-skills" id="previewSkills"></div>
                 </div>
@@ -296,7 +300,7 @@
 
               <!-- Checklist -->
               <div class="checklist-card">
-                <h3 class="checklist-title">✅ Danh sách kiểm tra</h3>
+                <h3 class="checklist-title"><i class="bi bi-check-circle-fill"></i> Danh sách kiểm tra</h3>
                 <ul class="checklist">
                   <li id="check-title" class="check-item">Tên vị trí</li>
                   <li id="check-type" class="check-item">
@@ -314,18 +318,18 @@
                 id="btnSubmit"
                 onclick="handleSubmit()"
               >
-                🚀 Đăng tin tuyển dụng
+                <i class="bi bi-rocket-takeoff-fill"></i> Đăng tin tuyển dụng
               </button>
 
               <button class="btn-draft" onclick="handleDraft()">
-                💾 Lưu nháp
+                <i class="bi bi-floppy-fill"></i> Lưu nháp
               </button>
               <button
                 class="btn-draft"
                 onclick="loadDraft()"
                 style="color: var(--primary); border-color: var(--primary)"
               >
-                📂 Tải nháp đã lưu
+                <i class="bi bi-folder2-open"></i> Tải nháp đã lưu
               </button>
               <p class="submit-note">
                 Tin sẽ được hiển thị ngay sau khi đăng thành công

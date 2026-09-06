@@ -148,11 +148,11 @@ DB_PASSWORD=mat_khau_mysql_cua_ban
 DB_NAME=job_portal
 
 # JWT
-JWT_SECRET=jobfit_secret_key_2024
+JWT_SECRET=chuoi_bi_mat_tu_dat_cang_ngau_nhien_cang_tot
 JWT_EXPIRES=7d
 
 # Groq AI API
-GROQ_API_KEY=GROQ_API_KEY=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
+GROQ_API_KEY=lay_tai_console.groq.com
 ```
 
 > ⚠️ **Lưu ý:** Không được commit file `.env` lên GitHub. File này chứa thông tin bí mật.
@@ -383,13 +383,13 @@ const data = await res.json();
 
 ## 9. Phân công công việc
 
-| Thành viên        | Phụ trách                    | Chi tiết                                                               |
-| ----------------- | ---------------------------- | ---------------------------------------------------------------------- |
-| **Bạn (Backend)** | Toàn bộ Backend              | `server.js`, `db.js`, auth/job/cv controllers, middleware, `.env`, SQL |
-| **Thành viên 1**  | Trang chủ & Tìm kiếm         | `index.html`, `search.html`, `job-detail.html`                         |
-| **Thành viên 2**  | Upload CV & Hồ sơ            | `auth.html`, `upload-cv.html`, `profile.html`                          |
-| **Thành viên 3**  | Kết quả AI & Giao diện chung | `result.html`, `main.css`, `api.js`, `utils.js`                        |
-| **Thành viên 4**  | Báo cáo & Kiểm thử           | Viết báo cáo, test chức năng, chỉnh sửa lỗi                            |
+| Thành viên     | Phụ trách                    | Chi tiết                                                               |
+| -------------- | ---------------------------- | ---------------------------------------------------------------------- |
+| **ĐẠI HỌC**    | Toàn bộ Backend              | `server.js`, `db.js`, auth/job/cv controllers, middleware, `.env`, SQL |
+| **GIA HUY**    | Trang chủ & Tìm kiếm         | `index.html`, `search.html`, `job-detail.html`                         |
+| **QUANG HUY**  | Upload CV & Hồ sơ            | `auth.html`, `upload-cv.html`, `profile.html`                          |
+| **TRỌNG TOÀN** | Kết quả AI & Giao diện chung | `result.html`, `main.css`, `api.js`, `utils.js`                        |
+| **GIA KHANG**  | Báo cáo & Kiểm thử           | Viết báo cáo, test chức năng, chỉnh sửa lỗi                            |
 
 ---
 

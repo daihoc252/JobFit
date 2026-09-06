@@ -22,7 +22,7 @@ function initBillingToggle() {
       labelYearly.classList.add('active');
       document.getElementById('premiumPrice').textContent  = '4.790.000đ';
       document.getElementById('premiumPeriod').textContent = '/ năm';
-      document.getElementById('premiumNote').textContent   = '✨ Tiết kiệm ~1.198.000đ so với theo tháng';
+      document.getElementById('premiumNote').innerHTML   = '<i class="bi bi-stars"></i> Tiết kiệm ~1.198.000đ so với theo tháng';
       document.getElementById('btnBuyPremium').onclick = () => handleBuyPlan('yearly');
     } else {
       currentPlan = 'monthly';
@@ -50,7 +50,7 @@ async function checkCurrentPremium() {
     if (user.is_premium && new Date(user.premium_expires_at) > new Date()) {
       const expires = new Date(user.premium_expires_at).toLocaleDateString('vi-VN');
       const btn = document.getElementById('btnBuyPremium');
-      btn.textContent = `✅ Đang dùng Premium (HH: ${expires})`;
+      btn.innerHTML = `<i class="bi bi-check-circle-fill"></i> Đang dùng Premium (HH: ${expires})`;
       btn.disabled = true;
       btn.style.background = '#10b981';
     }

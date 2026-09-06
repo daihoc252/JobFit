@@ -25,15 +25,21 @@ PORT=3000
 DB_HOST=localhost
 DB_PORT=3306
 DB_USER=root
-DB_PASSWORD=
+DB_PASSWORD=<mật khẩu MySQL của bạn>
 DB_NAME=jobfit
 
 # JWT
 
-JWT_SECRET=jobfit_secret_key_2024
+JWT_SECRET=<chuỗi bí mật tự đặt, càng dài càng ngẫu nhiên càng tốt>
 JWT_EXPIRES=7d
 
 # API Keys AI
 
-GEMINI_API_KEY=AQ.Ab8RN6KccwLqwF\_\_weNKXiRzKTLzKH8w6Q09wgLVH7Evyh9Nsg
-GROQ_API_KEY=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
+GEMINI_API_KEY=<lấy tại Google AI Studio>
+GROQ_API_KEY=<lấy tại console.groq.com>
+
+# OAuth - Đăng nhập Google/Facebook
+
+GOOGLE_CLIENT_ID=<lấy tại Google Cloud Console>
+FACEBOOK_APP_ID=<lấy tại Meta for Developers>
+FACEBOOK_APP_SECRET=<lấy tại Meta for Developers — KHÔNG chia sẻ giá trị này>

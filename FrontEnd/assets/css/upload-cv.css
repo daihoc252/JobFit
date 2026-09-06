@@ -87,7 +87,7 @@
 }
 
 .upload-icon-wrap { margin-bottom: 16px; }
-.upload-icon { font-size: 48px; }
+.upload-icon { font-size: 48px; color: var(--white); }
 
 .upload-box-title {
   font-size: 16px;
@@ -125,7 +125,7 @@
   gap: 12px;
 }
 
-.file-icon { font-size: 28px; flex-shrink: 0; }
+.file-icon { font-size: 28px; flex-shrink: 0; color: var(--white); }
 
 .file-name {
   font-size: 14px;

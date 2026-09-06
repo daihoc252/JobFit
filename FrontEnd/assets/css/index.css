@@ -153,6 +153,7 @@
 .hcard-icon {
   font-size: 28px;
   flex-shrink: 0;
+  color: var(--white);
 }
 
 .hcard-title {

@@ -182,9 +182,9 @@ function updatePreview() {
   document.getElementById("previewTitle").textContent = title;
 
   document.getElementById("previewMeta").innerHTML = `
-    ${location ? `<span>📍 ${location}</span>` : '<span style="color:var(--text-light)">📍 Địa điểm</span>'}
-    ${type ? `<span>💼 ${jobTypeLabel(type)}</span>` : '<span style="color:var(--text-light)">💼 Loại hình</span>'}
-    <span>💰 ${salary}</span>
+    ${location ? `<span><i class="bi bi-geo-alt-fill"></i> ${location}</span>` : '<span style="color:var(--text-light)"><i class="bi bi-geo-alt-fill"></i> Địa điểm</span>'}
+    ${type ? `<span><i class="bi bi-briefcase-fill"></i> ${jobTypeLabel(type)}</span>` : '<span style="color:var(--text-light)"><i class="bi bi-briefcase-fill"></i> Loại hình</span>'}
+    <span><i class="bi bi-cash-stack"></i> ${salary}</span>
   `;
 
   document.getElementById("previewSkills").innerHTML = selectedSkills
@@ -273,7 +273,7 @@ async function handleSubmit() {
 
   const btn = document.getElementById("btnSubmit");
   btn.disabled = true;
-  btn.textContent = "⏳ Đang đăng tin...";
+  btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Đang đăng tin...';
 
   // Build description đầy đủ
   const desc = document.getElementById("jobDescription").value.trim();
@@ -305,7 +305,7 @@ async function handleSubmit() {
     const res = await apiPost("/jobs", payload);
 
     if (res.ok) {
-      showToast("Đăng tin thành công! 🎉", "success");
+      showToast("Đăng tin thành công!", "success");
       setTimeout(
         () => (window.location.href = "employer-dashboard.html"),
         1500,
@@ -313,12 +313,12 @@ async function handleSubmit() {
     } else {
       showToast(res.data.message || "Đăng tin thất bại!", "error");
       btn.disabled = false;
-      btn.textContent = "🚀 Đăng tin tuyển dụng";
+      btn.innerHTML = '<i class="bi bi-rocket-takeoff-fill"></i> Đăng tin tuyển dụng';
     }
   } catch (err) {
     showToast("Lỗi kết nối server!", "error");
     btn.disabled = false;
-    btn.textContent = "🚀 Đăng tin tuyển dụng";
+    btn.innerHTML = '<i class="bi bi-rocket-takeoff-fill"></i> Đăng tin tuyển dụng';
   }
 }
 

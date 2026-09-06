@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const db = require("../config/db");
 
 const verifyToken = (req, res, next) => {
   // Frontend gửi token trong header dạng: "Bearer <token>"
@@ -31,8 +32,11 @@ const verifyPremium = async (req, res, next) => {
       "SELECT is_premium, premium_expires_at, role FROM users WHERE id = ?",
       [req.user.id],
     );
-
     const user = users[0];
+
+    if (!user) {
+      return res.status(401).json({ message: "Tài khoản không tồn tại" });
+    }
 
     // Phải là employer
     if (user.role !== "employer") {
@@ -51,6 +55,7 @@ const verifyPremium = async (req, res, next) => {
 
     next();
   } catch (error) {
+    console.error("verifyPremium error:", error);
     res.status(500).json({ message: "Lỗi server" });
   }
 };

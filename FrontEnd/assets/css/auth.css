@@ -140,3 +140,90 @@ select:focus {
   color: #991b1b;
   display: block;
 }
+
+/* Đăng nhập nhanh bằng mạng xã hội */
+.social-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0 18px;
+  color: #9ca3af;
+  font-size: 13px;
+}
+.social-divider::before,
+.social-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.social-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.social-role-pick {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 14px;
+  margin-bottom: 14px;
+}
+.social-role-pick .oauth-hint {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2px;
+}
+.social-role-pick label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  margin: 0;
+}
+.social-role-pick input[type="radio"] {
+  width: auto;
+  accent-color: #4f46e5;
+}
+
+.google-btn-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.oauth-hint {
+  font-size: 12px;
+  color: #9ca3af;
+  text-align: center;
+}
+
+.btn-facebook {
+  width: 100%;
+  padding: 11px;
+  background: #1877f2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+.btn-facebook:hover {
+  background: #145dbf;
+}
+.btn-facebook i {
+  font-size: 18px;
+}

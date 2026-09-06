@@ -45,6 +45,9 @@ function renderNavAuth() {
         <span style="font-size:14px; color:var(--text-sub)">
           Xin chào, <strong>${user.name}</strong>
         </span>
+        <a href="profile.html" class="btn-ghost" style="font-size:13px; padding:7px 14px">
+          Hồ sơ
+        </a>
         <a href="employer-dashboard.html" class="btn-ghost" style="font-size:13px; padding:7px 14px">
           Dashboard
         </a>
@@ -60,6 +63,9 @@ function renderNavAuth() {
         <span style="font-size:14px; color:var(--text-sub)">
           Xin chào, <strong>${user.name}</strong>
         </span>
+        <a href="profile.html" class="btn-ghost" style="font-size:13px; padding:7px 14px">
+          Hồ sơ
+        </a>
         <a href="upload-cv.html" class="btn-ghost" style="font-size:13px; padding:7px 14px">
           Upload CV
         </a>
@@ -71,6 +77,7 @@ function renderNavAuth() {
       // Role khác
       el.innerHTML = `
         <span>Xin chào, <strong>${user.name}</strong></span>
+        <a href="profile.html" class="btn-ghost" style="font-size:13px; padding:7px 14px">Hồ sơ</a>
         <button onclick="logout()" class="btn-primary">Đăng xuất</button>
       `;
     }

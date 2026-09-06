@@ -4,7 +4,9 @@ node_modules/
 # Bỏ qua file chứa mật khẩu môi trường
 .env
 
+# Bỏ qua file Client Secret Google tải về (chứa secret thật dạng plaintext)
+note_json/
+
 # Bỏ qua tất cả các file có đuôi .log trong dự án
 *.log
 
-*.sql

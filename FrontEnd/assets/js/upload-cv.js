@@ -87,12 +87,12 @@ async function handleUpload() {
   const statusText = document.getElementById("statusText");
 
   btnUpload.disabled = true;
-  btnUpload.textContent = "⏳ Đang xử lý...";
+  btnUpload.innerHTML = '<i class="bi bi-hourglass-split"></i> Đang xử lý...';
   statusEl.style.display = "block";
 
   // Bước 1: Upload
   statusFill.style.width = "30%";
-  statusText.textContent = "📤 Đang tải file lên server...";
+  statusText.innerHTML = '<i class="bi bi-cloud-arrow-up"></i> Đang tải file lên server...';
 
   try {
     const formData = new FormData();
@@ -103,12 +103,12 @@ async function handleUpload() {
 
     // Bước 2: Hiện trạng thái AI sau khi có response
     statusFill.style.width = "65%";
-    statusText.textContent = "🤖 AI đang phân tích CV...";
+    statusText.innerHTML = '<i class="bi bi-robot"></i> AI đang phân tích CV...';
 
     if (res.ok) {
       // Bước 3: Hoàn tất
       statusFill.style.width = "100%";
-      statusText.textContent = "✅ Phân tích hoàn tất!";
+      statusText.innerHTML = '<i class="bi bi-check-circle-fill"></i> Phân tích hoàn tất!';
 
       showUploadMsg(
         "Phân tích CV thành công! Đang chuyển đến trang kết quả...",
@@ -126,7 +126,7 @@ async function handleUpload() {
     console.error("LỖI MESSAGE:", err.message);
     statusEl.style.display = "none";
     btnUpload.disabled = false;
-    btnUpload.textContent = "🚀 Phân tích CV ngay";
+    btnUpload.innerHTML = '<i class="bi bi-rocket-takeoff-fill"></i> Phân tích CV ngay';
     showUploadMsg(
       "Lỗi: " + (err.message || "Không thể kết nối server"),
       "error",
@@ -141,7 +141,7 @@ function resetUpload() {
   document.getElementById("uploadBox").style.display = "block";
   document.getElementById("uploadStatus").style.display = "none";
   document.getElementById("btnUpload").disabled = false;
-  document.getElementById("btnUpload").textContent = "🚀 Phân tích CV ngay";
+  document.getElementById("btnUpload").innerHTML = '<i class="bi bi-rocket-takeoff-fill"></i> Phân tích CV ngay';
   hideUploadMsg();
 }
 

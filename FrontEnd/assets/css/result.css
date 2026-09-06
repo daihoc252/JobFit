@@ -6,14 +6,24 @@
 }
 
 /* Khung chứa điểm tổng quan */
-.result-pages {
+.result-header {
   background-color: white;
   border-radius: 16px;
   padding: 40px;
   text-align: center;
-  box-shadow: 0px 4px 22px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   margin-bottom: 24px;
 }
+
+/* Lỗi (loading dùng chung .loading-state/.loading-spinner ở main.css) */
+.result-error {
+  text-align: center;
+  padding: 80px 0;
+  color: var(--text-sub);
+}
+.result-error .error-icon { font-size: 48px; margin-bottom: 12px; }
+.result-error h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+.result-error p { margin-bottom: 24px; }
 /* Số điểm to ở giữa */
 .overall-score {
   font-size: 72px;
@@ -136,10 +146,9 @@
   line-height: 1.6;
   margin-bottom: 10px;
 }
-.section-suggestion::before {
-  content: "💡 Gợi ý: ";
-  font-weight: 600;
+.section-suggestion i {
   color: #374151;
+  margin-right: 4px;
 }
 
 /* Khung ví dụ viết lại (nền vàng nhạt) */
@@ -152,13 +161,273 @@
   color: #92400e;
   line-height: 1.6;
 }
-.section-example::before {
-  content: "✏️ Ví dụ viết lại: ";
-  font-weight: 600;
+.section-example i {
+  margin-right: 4px;
 }
 
 .result-actions {
   display: flex;
   gap: 12px;
   justify-content: center;
+}
+
+/* ============================================
+   Kết quả kiểu ATS (v2)
+   ============================================ */
+
+/* ── Khung tóm tắt trên cùng ──────────────── */
+.ats-header-top {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+/* Donut điểm số (conic-gradient, không cần SVG) */
+.score-donut {
+  --pct: 0;
+  --ring-color: #9ca3af;
+  width: 116px;
+  height: 116px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--ring-color) calc(var(--pct) * 3.6deg),
+    #eef0f4 0deg
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.score-donut-inner {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.score-donut-num {
+  font-size: 30px;
+  font-weight: 900;
+  color: #111827;
+  line-height: 1;
+}
+.score-donut-max {
+  font-size: 11px;
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+.ats-header-info { flex: 1; min-width: 0; }
+
+.ats-filename {
+  font-size: 12px;
+  font-weight: 700;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.ai-summary-text {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.ats-meta-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ats-meta-tag {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 99px;
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+/* Dòng gợi ý nhỏ dưới cùng khung header */
+.ats-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.5;
+  text-align: left;
+}
+.ats-hint-icon { flex-shrink: 0; }
+
+/* ── Card nhóm tiêu chí ────────────────────── */
+.ats-category-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.ats-category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.ats-category-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 2px;
+}
+.ats-category-desc {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.ats-category-score {
+  font-size: 20px;
+  font-weight: 800;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.ats-category-score span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #9ca3af;
+}
+
+.ats-bar-track {
+  height: 6px;
+  border-radius: 99px;
+  background: #eef0f4;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.ats-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.3s;
+}
+
+/* ── Từng tiêu chí trong nhóm ──────────────── */
+.ats-criteria-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ats-criterion {
+  border-top: 1px solid #f3f4f6;
+  padding-top: 14px;
+}
+.ats-criteria-list .ats-criterion:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.ats-criterion-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.ats-criterion-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.ats-criterion-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ats-criterion-score {
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.btn-fix-now {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 99px;
+  border: 1px solid var(--border, #e5e7eb);
+  background: white;
+  color: #6b7280;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.btn-fix-now:hover {
+  border-color: var(--primary, #4f46e5);
+  color: var(--primary, #4f46e5);
+  background: var(--primary-lt, #eef2ff);
+}
+
+.ats-criterion-bar-track {
+  height: 5px;
+  border-radius: 99px;
+  background: #f1f2f6;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.ats-criterion-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.3s;
+}
+
+.ats-criterion-comment {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.ats-criterion-suggestion {
+  margin-top: 8px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #4b5563;
+  line-height: 1.6;
+}
+.ats-criterion-suggestion i {
+  color: #374151;
+  margin-right: 4px;
+}
+
+/* Màu theo % điểm: good / warning / bad */
+.score-good   { color: #10b981; }
+.score-warning{ color: #f59e0b; }
+.score-bad    { color: #ef4444; }
+.fill-good    { background: #10b981; }
+.fill-warning { background: #f59e0b; }
+.fill-bad     { background: #ef4444; }
+
+@media (max-width: 600px) {
+  .ats-header-top { flex-direction: column; text-align: center; }
+  .ats-header-info { text-align: center; }
+  .ats-meta-tags { justify-content: center; }
+  .ats-hint { text-align: left; }
+  .ats-category-header { flex-wrap: wrap; }
 }

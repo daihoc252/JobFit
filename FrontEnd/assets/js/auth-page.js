@@ -112,5 +112,123 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
   if (isLoggedIn()) {
     window.location.href = 'index.html';
+    return;
+  }
+  loadFacebookSdk();
+
+  if (location.protocol !== 'https:') {
+    const hint = document.getElementById('facebookHttpsHint');
+    if (hint) hint.style.display = 'block';
   }
 });
+
+// ── Xử lý sau khi đăng nhập Google/Facebook thành công ──
+function handleSocialLoginSuccess(data) {
+  localStorage.setItem('token', data.token);
+  localStorage.setItem('user', JSON.stringify(data.user));
+  window.location.href = 'index.html';
+}
+
+// Chỉ coi là đã cấu hình nếu người dùng đã thay giá trị mẫu "YOUR_..."
+function isProviderConfigured(id) {
+  return typeof id !== 'undefined' && !!id && !id.startsWith('YOUR_');
+}
+const isGoogleConfigured = isProviderConfigured(
+  typeof GOOGLE_CLIENT_ID !== 'undefined' ? GOOGLE_CLIENT_ID : undefined,
+);
+const isFacebookConfigured = isProviderConfigured(
+  typeof FACEBOOK_APP_ID !== 'undefined' ? FACEBOOK_APP_ID : undefined,
+);
+
+// Gửi credential/token đăng nhập mạng xã hội lên backend, dùng chung cho
+// Google và Facebook — chỉ khác endpoint, payload, và tên hiển thị khi lỗi
+async function submitSocialLogin(endpoint, payload, providerLabel) {
+  try {
+    const res = await apiPost(endpoint, {
+      ...payload,
+      role: getSelectedSocialRole(),
+    });
+    if (res.ok) {
+      handleSocialLoginSuccess(res.data);
+    } else {
+      showMsg('login-msg', res.data.message || `Đăng nhập ${providerLabel} thất bại!`, 'error');
+    }
+  } catch (err) {
+    showMsg('login-msg', 'Không kết nối được server!', 'error');
+  }
+}
+
+// ── Đăng nhập bằng Google (Google Identity Services) ─────
+// Được gọi khi script accounts.google.com/gsi/client load xong (onload=)
+function initGoogleLogin() {
+  if (isLoggedIn()) return;
+
+  if (!isGoogleConfigured || typeof google === 'undefined') {
+    document.getElementById('googleNotConfigured').style.display = 'block';
+    return;
+  }
+
+  google.accounts.id.initialize({
+    client_id: GOOGLE_CLIENT_ID,
+    callback: handleGoogleCredential,
+  });
+  google.accounts.id.renderButton(document.getElementById('googleBtn'), {
+    theme: 'outline',
+    size: 'large',
+    width: 340,
+    text: 'continue_with',
+  });
+}
+
+// Đọc vai trò đang chọn (chỉ có tác dụng khi tạo tài khoản mới)
+function getSelectedSocialRole() {
+  const el = document.querySelector('input[name="socialRole"]:checked');
+  return el ? el.value : 'candidate';
+}
+
+function handleGoogleCredential(response) {
+  return submitSocialLogin('/auth/google', { credential: response.credential }, 'Google');
+}
+
+// ── Đăng nhập bằng Facebook (Facebook JavaScript SDK) ────
+window.fbAsyncInit = function () {
+  FB.init({ appId: FACEBOOK_APP_ID, cookie: true, xfbml: false, version: 'v19.0' });
+};
+
+function loadFacebookSdk() {
+  if (!isFacebookConfigured || document.getElementById('facebook-jssdk')) return;
+  const js = document.createElement('script');
+  js.id = 'facebook-jssdk';
+  js.src = 'https://connect.facebook.net/vi_VN/sdk.js';
+  document.body.appendChild(js);
+}
+
+function handleFacebookLogin() {
+  if (!isFacebookConfigured || typeof FB === 'undefined') {
+    showMsg('login-msg', 'Đăng nhập Facebook chưa được cấu hình!', 'error');
+    return;
+  }
+
+  // Facebook chặn hẳn FB.login() trên trang HTTP kể từ 2018, kể cả localhost/127.0.0.1
+  if (location.protocol !== 'https:') {
+    showMsg(
+      'login-msg',
+      'Đăng nhập Facebook chỉ hoạt động khi trang được tải qua HTTPS. Vui lòng dùng Google, hoặc thử lại sau khi trang được triển khai qua HTTPS.',
+      'error',
+    );
+    return;
+  }
+
+  FB.login(
+    (response) => {
+      if (response.authResponse) {
+        submitFacebookToken(response.authResponse.accessToken);
+      }
+    },
+    { scope: 'public_profile,email' },
+  );
+}
+
+function submitFacebookToken(accessToken) {
+  return submitSocialLogin('/auth/facebook', { accessToken }, 'Facebook');
+}

@@ -26,7 +26,10 @@ async function apiCall(endpoint, options = {}) {
   const data = await res.json();
 
   // Nếu token hết hạn → tự động logout
-  if (res.status === 401) {
+  // (chỉ áp dụng khi request có gửi kèm token — 401 từ các API công khai
+  // như login/register/google/facebook chỉ là sai thông tin đăng nhập,
+  // không phải hết phiên, nên phải trả lỗi bình thường để hiện message)
+  if (res.status === 401 && token) {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     window.location.href = "auth.html";
@@ -47,6 +50,14 @@ function apiGet(endpoint) {
 function apiPost(endpoint, body) {
   return apiCall(endpoint, {
     method: "POST",
+    body: JSON.stringify(body),
+  });
+}
+
+/** PATCH request với body JSON */
+function apiPatch(endpoint, body) {
+  return apiCall(endpoint, {
+    method: "PATCH",
     body: JSON.stringify(body),
   });
 }

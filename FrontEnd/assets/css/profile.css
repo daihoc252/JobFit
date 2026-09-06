@@ -1,0 +1,256 @@
+/* ============================================
+   profile.css – CSS trang hồ sơ cá nhân
+   ============================================ */
+
+.profile-page {
+  background: var(--bg);
+  padding: 40px 0 80px;
+  min-height: 80vh;
+}
+
+/* ── Header hồ sơ ─────────────────────────── */
+.profile-header-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-bottom: 28px;
+}
+
+.profile-avatar {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), #7c3aed);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.profile-header-info { flex: 1; min-width: 0; }
+
+.profile-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.profile-email {
+  font-size: 14px;
+  color: var(--text-sub);
+  margin-bottom: 10px;
+}
+
+.profile-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.profile-header-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-logout,
+.btn-switch-role {
+  padding: 9px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  background: white;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.btn-logout {
+  border: 1.5px solid var(--error);
+  color: var(--error);
+}
+.btn-logout:hover { background: var(--error); color: white; }
+
+.btn-switch-role {
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+}
+.btn-switch-role:hover { background: var(--primary-lt); }
+
+/* ── Section chung ────────────────────────── */
+.profile-section {
+  background: transparent;
+  margin-bottom: 28px;
+}
+
+.profile-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.section-title-sm {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+/* ── Danh sách CV ─────────────────────────── */
+.cv-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cv-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-left: 4px solid transparent;
+  transition: all 0.15s;
+}
+.cv-card:hover { transform: translateX(2px); box-shadow: var(--shadow-lg); }
+.cv-card.parsed  { border-left-color: #10b981; }
+.cv-card.pending { border-left-color: #f59e0b; }
+.cv-card.error   { border-left-color: #ef4444; }
+
+.cv-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--primary-lt);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.cv-info { flex: 1; min-width: 0; }
+
+.cv-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cv-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+.cv-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.badge-red { background: #fee2e2; color: #991b1b; }
+
+/* ── Nút thao tác CV ──────────────────────── */
+.btn-view-cv {
+  padding: 7px 14px;
+  background: var(--primary-lt);
+  color: var(--primary);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.btn-view-cv:hover { background: var(--primary); color: white; }
+
+.btn-delete-cv {
+  padding: 7px 14px;
+  background: #fee2e2;
+  color: #dc2626;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+}
+.btn-delete-cv:hover { background: #dc2626; color: white; }
+
+/* ── Khu vực nhà tuyển dụng ───────────────── */
+.employer-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.quick-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.15s;
+}
+.quick-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+.quick-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  background: var(--primary-lt);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.quick-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.quick-sub {
+  font-size: 12px;
+  color: var(--text-sub);
+  line-height: 1.4;
+}
+
+/* ── Responsive ───────────────────────────── */
+@media (max-width: 900px) {
+  .employer-quick-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .profile-header-card { flex-direction: column; text-align: center; }
+  .cv-card { flex-wrap: wrap; }
+  .cv-actions { width: 100%; justify-content: flex-end; }
+}

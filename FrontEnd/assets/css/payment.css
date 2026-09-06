@@ -254,49 +254,24 @@
   text-align: center;
 }
 
-/* ── Modal thành công ─────────────────────── */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  backdrop-filter: blur(4px);
-}
-
+/* ── Modal thành công (to hơn modal mặc định ở main.css) ── */
 .modal-box {
-  background: white;
   border-radius: 20px;
   padding: 48px 40px;
-  text-align: center;
   max-width: 420px;
-  width: 90%;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-  animation: modalIn 0.3s ease;
+  animation: modalInBig 0.3s ease;
 }
 
-@keyframes modalIn {
+@keyframes modalInBig {
   from { transform: scale(0.8); opacity: 0; }
   to   { transform: scale(1);   opacity: 1; }
 }
 
 .modal-icon { font-size: 56px; margin-bottom: 16px; }
 
-.modal-box h2 {
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 10px;
-}
+.modal-box h2 { font-size: 22px; }
 
-.modal-box p {
-  font-size: 14px;
-  color: var(--text-sub);
-  margin-bottom: 6px;
-  line-height: 1.6;
-}
+.modal-box p { margin-bottom: 6px; }
 
 .modal-expires {
   color: #10b981 !important;

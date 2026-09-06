@@ -36,7 +36,7 @@ async function loadUserInfo() {
 
     // Cập nhật tiêu đề
     document.getElementById('dashTitle').textContent =
-      `Xin chào, ${user.name} 👋`;
+      `Xin chào, ${user.name}`;
 
     // Hiện trạng thái premium
     const statusEl = document.getElementById('premiumStatus');
@@ -44,11 +44,11 @@ async function loadUserInfo() {
 
     if (isPremium) {
       const expires = new Date(user.premium_expires_at).toLocaleDateString('vi-VN');
-      statusEl.innerHTML = `💎 Premium · HH: ${expires}`;
+      statusEl.innerHTML = `<i class="bi bi-gem"></i> Premium · HH: ${expires}`;
       statusEl.className = 'premium-status premium-active';
       document.getElementById('statPremium').textContent = 'Premium';
     } else {
-      statusEl.innerHTML = `<a href="pricing.html" style="color:inherit">🔓 Nâng cấp Premium</a>`;
+      statusEl.innerHTML = `<a href="pricing.html" style="color:inherit"><i class="bi bi-unlock-fill"></i> Nâng cấp Premium</a>`;
       statusEl.className = 'premium-status premium-inactive';
       document.getElementById('statPremium').textContent = 'Free';
 
@@ -146,19 +146,19 @@ function renderJobRow(job) {
 
   return `
     <div class="job-row ${job.status}" id="jobRow_${job.id}">
-      <div class="job-row-icon">💼</div>
+      <div class="job-row-icon"><i class="bi bi-briefcase-fill"></i></div>
 
       <div class="job-row-info">
         <p class="job-row-title">${job.title}</p>
         <div class="job-row-meta">
-          <span>📍 ${job.location || 'Chưa xác định'}</span>
-          <span>💰 ${job.salary || 'Thỏa thuận'}</span>
+          <span><i class="bi bi-geo-alt-fill"></i> ${job.location || 'Chưa xác định'}</span>
+          <span><i class="bi bi-cash-stack"></i> ${job.salary || 'Thỏa thuận'}</span>
           <span>
             <span class="badge ${isOpen ? 'badge-green' : 'badge-orange'}">
-              ${isOpen ? '🟢 Đang tuyển' : '🔴 Đã đóng'}
+              <i class="bi bi-circle-fill"></i> ${isOpen ? 'Đang tuyển' : 'Đã đóng'}
             </span>
           </span>
-          <span style="color:var(--text-light)">📅 ${formatDate(job.created_at)}</span>
+          <span style="color:var(--text-light)"><i class="bi bi-calendar3"></i> ${formatDate(job.created_at)}</span>
         </div>
         ${shownSkills.length ? `
           <div class="job-row-skills">
@@ -169,17 +169,17 @@ function renderJobRow(job) {
 
       <div class="job-row-actions">
         <button class="btn-view" onclick="viewJob(${job.id})">
-          👁 Xem
+          <i class="bi bi-eye-fill"></i> Xem
         </button>
         <button
           class="btn-toggle-status"
           onclick="toggleJobStatus(${job.id}, '${job.status}')"
           title="${isOpen ? 'Đóng tin' : 'Mở lại tin'}"
         >
-          ${isOpen ? '⏸ Đóng' : '▶ Mở lại'}
+          ${isOpen ? '<i class="bi bi-pause-fill"></i> Đóng' : '<i class="bi bi-play-fill"></i> Mở lại'}
         </button>
         <button class="btn-delete" onclick="confirmDelete(${job.id})">
-          🗑 Xóa
+          <i class="bi bi-trash3-fill"></i> Xóa
         </button>
       </div>
     </div>
@@ -216,11 +216,7 @@ async function toggleJobStatus(id, currentStatus) {
   const label     = newStatus === 'open' ? 'mở lại' : 'đóng';
 
   try {
-    // Cần thêm route PATCH /api/jobs/:id vào backend
-    const res = await apiCall(`/jobs/${id}/status`, {
-      method: 'PATCH',
-      body: JSON.stringify({ status: newStatus })
-    });
+    const res = await apiPatch(`/jobs/${id}/status`, { status: newStatus });
 
     if (res && res.ok) {
       // Cập nhật local data
@@ -339,7 +335,7 @@ async function saveCompanyProfile() {
   try {
     const res = await apiPost('/company/me', payload);
     if (res.ok) {
-      document.getElementById('companySaveStatus').textContent = '✅ Đã lưu';
+      document.getElementById('companySaveStatus').innerHTML = '<i class="bi bi-check-circle-fill"></i> Đã lưu';
       showToast('Lưu thông tin công ty thành công!', 'success');
       setTimeout(() => {
         document.getElementById('companySaveStatus').textContent = '';

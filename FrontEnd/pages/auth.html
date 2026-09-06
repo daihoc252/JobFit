@@ -7,6 +7,10 @@
     <link rel="icon" type="image/x-icon" href="../assets/image/favicon.ico" />
 
     <link rel="stylesheet" href="../assets/css/auth.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
   </head>
   <body>
     <div class="container">
@@ -71,9 +75,51 @@
         <button class="btn" onclick="handleRegister()">Đăng ký</button>
         <div class="msg" id="reg-msg"></div>
       </div>
+
+      <!-- Đăng nhập nhanh bằng mạng xã hội -->
+      <div class="social-divider"><span>hoặc</span></div>
+
+      <div class="social-role-pick">
+        <p class="oauth-hint">Nếu là tài khoản mới, đăng ký với vai trò:</p>
+        <label>
+          <input type="radio" name="socialRole" value="candidate" checked />
+          Ứng viên
+        </label>
+        <label>
+          <input type="radio" name="socialRole" value="employer" />
+          Nhà tuyển dụng
+        </label>
+      </div>
+
+      <div class="social-login">
+        <div id="googleBtn" class="google-btn-wrap"></div>
+        <p id="googleNotConfigured" class="oauth-hint" style="display: none">
+          Đăng nhập Google chưa được cấu hình
+        </p>
+
+        <button
+          type="button"
+          class="btn-facebook"
+          id="fbLoginBtn"
+          onclick="handleFacebookLogin()"
+        >
+          <i class="bi bi-facebook"></i>
+          Đăng nhập với Facebook
+        </button>
+        <p id="facebookHttpsHint" class="oauth-hint" style="display: none">
+          Facebook yêu cầu HTTPS — chỉ hoạt động khi trang được triển khai qua HTTPS
+        </p>
+      </div>
     </div>
     <script src="../assets/js/api.js"></script>
     <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/oauth-config.js"></script>
     <script src="../assets/js/auth-page.js"></script>
+    <script
+      src="https://accounts.google.com/gsi/client"
+      async
+      defer
+      onload="initGoogleLogin()"
+    ></script>
   </body>
 </html>

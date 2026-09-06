@@ -53,7 +53,7 @@ async function loadJobDetail(jobId) {
 function renderHeader(job) {
   document.getElementById('jobHeader').innerHTML = `
     <div class="job-header-inner">
-      <div class="jd-logo">🏢</div>
+      <div class="jd-logo"><i class="bi bi-building"></i></div>
       <div>
         <h1 class="jd-title">${job.title}</h1>
         <p class="jd-company">${job.company_name || 'Công ty'}</p>
@@ -62,7 +62,7 @@ function renderHeader(job) {
             ${jobTypeLabel(job.job_type)}
           </span>
           <span class="badge ${job.status === 'open' ? 'badge-green' : 'badge-orange'}">
-            ${job.status === 'open' ? '🟢 Đang tuyển' : '🔴 Đã đóng'}
+            ${job.status === 'open' ? '<i class="bi bi-circle-fill"></i> Đang tuyển' : '<i class="bi bi-circle-fill"></i> Đã đóng'}
           </span>
         </div>
       </div>
@@ -74,19 +74,19 @@ function renderHeader(job) {
 function renderMetaBar(job) {
   document.getElementById('jobMetaBar').innerHTML = `
     <div class="meta-block">
-      <p class="meta-label">💰 Mức lương</p>
+      <p class="meta-label"><i class="bi bi-cash-stack"></i> Mức lương</p>
       <p class="meta-value" style="color:var(--primary)">${job.salary || 'Thỏa thuận'}</p>
     </div>
     <div class="meta-block">
-      <p class="meta-label">📍 Địa điểm</p>
+      <p class="meta-label"><i class="bi bi-geo-alt-fill"></i> Địa điểm</p>
       <p class="meta-value">${job.location || 'Không xác định'}</p>
     </div>
     <div class="meta-block">
-      <p class="meta-label">💼 Loại hình</p>
+      <p class="meta-label"><i class="bi bi-briefcase-fill"></i> Loại hình</p>
       <p class="meta-value">${jobTypeLabel(job.job_type)}</p>
     </div>
     <div class="meta-block">
-      <p class="meta-label">📅 Ngày đăng</p>
+      <p class="meta-label"><i class="bi bi-calendar3"></i> Ngày đăng</p>
       <p class="meta-value">${formatDate(job.created_at)}</p>
     </div>
   `;
@@ -95,7 +95,7 @@ function renderMetaBar(job) {
 // ── Render mô tả công việc ───────────────────
 function renderDescription(job) {
   document.getElementById('jobDescription').innerHTML = `
-    <h2 class="section-heading">📋 Mô tả công việc</h2>
+    <h2 class="section-heading"><i class="bi bi-file-text"></i> Mô tả công việc</h2>
     <p class="job-description-text">${job.description || 'Chưa có mô tả.'}</p>
   `;
 }
@@ -111,7 +111,7 @@ function renderSkills(job) {
     : '<p style="color:var(--text-light); font-size:14px">Chưa có thông tin kỹ năng</p>';
 
   document.getElementById('jobSkills').innerHTML = `
-    <h2 class="section-heading">🛠 Kỹ năng yêu cầu</h2>
+    <h2 class="section-heading"><i class="bi bi-tools"></i> Kỹ năng yêu cầu</h2>
     <div class="skills-wrap">${skillsHtml}</div>
   `;
 }
@@ -128,14 +128,14 @@ function renderSidebar(job) {
         Ứng viên liên hệ trực tiếp với nhà tuyển dụng qua thông tin bên dưới
       </p>
       <div class="contact-item">
-        <div class="contact-icon">📧</div>
+        <div class="contact-icon"><i class="bi bi-envelope-fill"></i></div>
         <div>
           <p class="contact-label">Email</p>
           <p class="contact-value">${job.contact_email || 'Chưa cung cấp'}</p>
         </div>
       </div>
       <div class="contact-item">
-        <div class="contact-icon">📞</div>
+        <div class="contact-icon"><i class="bi bi-telephone-fill"></i></div>
         <div>
           <p class="contact-label">Số điện thoại</p>
           <p class="contact-value">${job.contact_phone || 'Chưa cung cấp'}</p>
@@ -143,7 +143,7 @@ function renderSidebar(job) {
       </div>
       ${job.address ? `
       <div class="contact-item">
-        <div class="contact-icon">📍</div>
+        <div class="contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
         <div>
           <p class="contact-label">Địa chỉ</p>
           <p class="contact-value">${job.address}</p>
@@ -159,7 +159,7 @@ function renderSidebar(job) {
         ? `<p class="company-info">${truncate(job.description_company, 120)}</p>`
         : ''}
       ${job.website
-        ? `<a href="${job.website}" target="_blank" class="company-website">🌐 ${job.website}</a>`
+        ? `<a href="${job.website}" target="_blank" class="company-website"><i class="bi bi-globe"></i> ${job.website}</a>`
         : ''}
     </div>
 
@@ -168,12 +168,12 @@ function renderSidebar(job) {
     <div class="sidebar-cta">
       <h4>Muốn kiểm tra CV của bạn?</h4>
       <p>Đăng nhập và tải CV lên để AI phân tích kỹ năng phù hợp</p>
-      <a href="upload-cv.html" class="btn-cta-white">📤 Upload CV ngay</a>
+      <a href="upload-cv.html" class="btn-cta-white"><i class="bi bi-cloud-arrow-up"></i> Upload CV ngay</a>
     </div>` : `
     <div class="sidebar-cta">
       <h4>Kiểm tra CV của bạn</h4>
       <p>Tải CV lên để AI phân tích kỹ năng phù hợp với vị trí này</p>
-      <a href="upload-cv.html" class="btn-cta-white">📤 Upload CV ngay</a>
+      <a href="upload-cv.html" class="btn-cta-white"><i class="bi bi-cloud-arrow-up"></i> Upload CV ngay</a>
     </div>`}
   `;
 }

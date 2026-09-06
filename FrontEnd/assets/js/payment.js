@@ -38,7 +38,7 @@ function renderOrderSummary() {
   const plan = PLANS[selectedPlan];
 
   document.getElementById('summaryPlan').innerHTML = `
-    <p class="summary-plan-name">💎 ${plan.name}</p>
+    <p class="summary-plan-name"><i class="bi bi-gem"></i> ${plan.name}</p>
     <p class="summary-plan-period">Thời hạn: ${plan.period}</p>
   `;
 
@@ -72,11 +72,11 @@ function selectMethod(method) {
   if (method === 'card') {
     document.getElementById('methodCard').classList.add('active');
     document.getElementById('formCard').style.display = 'block';
-    document.getElementById('btnPay').textContent = '🔒 Thanh toán an toàn';
+    document.getElementById('btnPay').innerHTML = '<i class="bi bi-lock-fill"></i> Thanh toán an toàn';
   } else {
     document.getElementById('methodTransfer').classList.add('active');
     document.getElementById('formTransfer').style.display = 'block';
-    document.getElementById('btnPay').textContent = '✅ Xác nhận đã chuyển khoản';
+    document.getElementById('btnPay').innerHTML = '<i class="bi bi-check-circle-fill"></i> Xác nhận đã chuyển khoản';
   }
 }
 
@@ -119,7 +119,7 @@ async function handlePayment() {
   // Giả lập xử lý
   const btn = document.getElementById('btnPay');
   btn.disabled = true;
-  btn.textContent = '⏳ Đang xử lý...';
+  btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Đang xử lý...';
 
   // Giả lập delay 2 giây
   await new Promise(r => setTimeout(r, 2000));
@@ -145,13 +145,13 @@ async function handlePayment() {
     } else {
       showToast(res.data.message || 'Thanh toán thất bại!', 'error');
       btn.disabled = false;
-      btn.textContent = selectedMethod === 'card' ? '🔒 Thanh toán an toàn' : '✅ Xác nhận đã chuyển khoản';
+      btn.innerHTML = selectedMethod === 'card' ? '<i class="bi bi-lock-fill"></i> Thanh toán an toàn' : '<i class="bi bi-check-circle-fill"></i> Xác nhận đã chuyển khoản';
     }
 
   } catch (err) {
     showToast('Lỗi kết nối server!', 'error');
     btn.disabled = false;
-    btn.textContent = selectedMethod === 'card' ? '🔒 Thanh toán an toàn' : '✅ Xác nhận đã chuyển khoản';
+    btn.innerHTML = selectedMethod === 'card' ? '<i class="bi bi-lock-fill"></i> Thanh toán an toàn' : '<i class="bi bi-check-circle-fill"></i> Xác nhận đã chuyển khoản';
   }
 }
 

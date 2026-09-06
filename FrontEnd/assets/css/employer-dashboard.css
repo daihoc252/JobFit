@@ -44,16 +44,6 @@
   border-radius: 99px;
 }
 
-.premium-active {
-  background: #d1fae5;
-  color: #065f46;
-}
-
-.premium-inactive {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
 /* ── Stats Grid ───────────────────────────── */
 .stats-grid {
   display: grid;
@@ -115,24 +105,9 @@
   border-bottom-color: var(--primary);
 }
 
-/* ── Loading ──────────────────────────────── */
-.loading-state {
-  text-align: center;
-  padding: 60px 0;
-  color: var(--text-sub);
-}
-
-.loading-spinner {
-  width: 36px;
-  height: 36px;
-  border: 3px solid var(--border);
-  border-top-color: var(--primary);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  margin: 0 auto 14px;
-}
-
-@keyframes spin { to { transform: rotate(360deg); } }
+/* ── Loading (kích thước gọn hơn — spinner dùng chung ở main.css) ── */
+.loading-state { padding: 60px 0; }
+.loading-spinner { width: 36px; height: 36px; margin: 0 auto 14px; }
 
 /* ── Job List ─────────────────────────────── */
 .job-list {
@@ -254,69 +229,7 @@
 .empty-icon { font-size: 48px; margin-bottom: 12px; }
 .empty-state h3 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
 
-/* ── Modal ────────────────────────────────── */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  backdrop-filter: blur(4px);
-}
-
-.modal-box {
-  background: white;
-  border-radius: 16px;
-  padding: 40px 36px;
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-  animation: modalIn 0.25s ease;
-}
-
-@keyframes modalIn {
-  from { transform: scale(0.85); opacity: 0; }
-  to   { transform: scale(1);    opacity: 1; }
-}
-
-.modal-icon { font-size: 44px; margin-bottom: 14px; }
-.modal-box h2 { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
-.modal-box p  { font-size: 14px; color: var(--text-sub); line-height: 1.6; margin-bottom: 24px; }
-
-.modal-actions {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.btn-cancel {
-  padding: 10px 24px;
-  background: #f3f4f6;
-  color: var(--text);
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-.btn-cancel:hover { background: #e5e7eb; }
-
-.btn-confirm-delete {
-  padding: 10px 24px;
-  background: #dc2626;
-  color: white;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-.btn-confirm-delete:hover { background: #b91c1c; }
+/* ── Modal (style dùng chung ở main.css) ───── */
 
 /* ── Responsive ───────────────────────────── */
 @media (max-width: 900px) {
